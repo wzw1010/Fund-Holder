@@ -2291,12 +2291,25 @@
                     var latestTradeDate = getLatestTradeDate();
                     var hasTodayNav = actualDate === latestTradeDate && actualRate !== null;
 
+                    //❎原显示逻辑 var netStr = hasTodayNav ? (actualRate >= 0 ? '+' : '') + actualRate.toFixed(2) + '%' : '--';
+// var netCls = hasTodayNav ? (actualRate > 0 ? 'up' : (actualRate < 0 ? 'down' : 'zero')) : 'zero';
+
                     // ✅ 估值始终显示（左侧），净值有则显示（右侧）
                     var estimateStr = gszzl !== null ? (gszzl >= 0 ? '+' : '') + gszzl.toFixed(2) + '%' : '--';
                     var estimateCls = gszzl === null ? 'zero' : (gszzl > 0 ? 'up' : (gszzl < 0 ? 'down' : 'zero'));
 
-                    var netStr = hasTodayNav ? (actualRate >= 0 ? '+' : '') + actualRate.toFixed(2) + '%' : '--';
-                    var netCls = hasTodayNav ? (actualRate > 0 ? 'up' : (actualRate < 0 ? 'down' : 'zero')) : 'zero';
+                    // 右侧净值：只在盘后/盘前显示最新净值，交易日 9:15-15:15 准时退休
+var netStr = '--';
+var netCls = 'zero';
+var minutes = new Date().getHours() * 60 + new Date().getMinutes();
+var isTradingTimeNow = isTradingDay() && minutes >= 555 && minutes < 915;
+if (!isTradingTimeNow) {
+    var rate = d.actualRate != null ? parseFloat(d.actualRate) : null;
+    if (rate !== null && !isNaN(rate)) {
+        netStr = (rate >= 0 ? '+' : '') + rate.toFixed(2) + '%';
+        netCls = rate > 0 ? 'up' : (rate < 0 ? 'down' : 'zero');
+    }
+}
 
                     var tagHtml = tag ?
                         '<span class="industry-tag" data-code="' + code +
