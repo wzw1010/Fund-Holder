@@ -4,7 +4,8 @@ const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
-  './icon-1024.png'
+  './icon-1024.png',
+  'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js'   // 新增缓存 Chart.js
 ];
 
 self.addEventListener('install', (event) => {
