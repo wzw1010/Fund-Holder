@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#000000" id="themeColorMeta">
     <link rel="apple-touch-icon" href="icon-1024.png">
     <link rel="manifest" href="./manifest.json">
-    <script src="https://cdn.bootcdn.net/ajax/libs/Chart.js/4.4.0/chart.umd.min.js">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
     </script>
     <style>
         /* ===== CSS 变量 ===== */
@@ -341,15 +341,8 @@
             display: inline-block;
         }
         @keyframes badgePulse {
-            0%,
-            100% {
-                opacity: .7;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.02);
-            }
+            0%, 100% { opacity: .7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
         }
         /* ===== 右上角胶囊按钮 ===== */
         .btn-icon {
@@ -370,7 +363,7 @@
             justify-content: center;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
             transition: transform 0.35s cubic-bezier(0.34, 1.8, 0.64, 1),
-                background 0.2s ease;
+                        background 0.2s ease;
             will-change: transform;
             -webkit-tap-highlight-color: transparent;
         }
@@ -406,7 +399,7 @@
         .index-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            gap: 5px;
         }
         .idx-card {
             background: var(--idx-card-bg);
@@ -420,7 +413,7 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
-            min-height: 85px;
+            min-height: 52px;
             justify-content: center;
         }
         .idx-card:active {
@@ -552,20 +545,22 @@
             margin-top: 2px;
         }
         .industry-tag {
-            font-size: .65rem;
-            padding: 2px 10px;
-            border-radius: var(--radius);
-            white-space: nowrap;
-            flex-shrink: 0;
-            border: 1px solid var(--tag-border);
-            font-weight: 500;
-            cursor: pointer;
-            max-width: 80px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            background: var(--tag-bg);
-            color: var(--tag-color);
-        }
+    font-size: 0.65rem;
+    margin-left: -4px;
+    padding: 2px 4px;
+    border-radius: var(--radius);
+    white-space: nowrap;
+    flex-shrink: 0;
+    border: 1px solid var(--tag-border);
+    font-weight: 500;
+    cursor: pointer;
+    width: 48px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: var(--tag-bg);
+    color: var(--tag-color);
+}
         .industry-tag.tag-placeholder {
             opacity: .4;
         }
@@ -607,7 +602,7 @@
             padding: 0 2px;
         }
 
-        /* ===== 持仓卡片 ===== */
+        /* ===== 持仓卡片（保持不变） ===== */
         .holding-card {
             background: var(--bg-card);
             border: none;
@@ -1591,10 +1586,10 @@
                     <div class="child-cards">
                         <div class="child-card" onclick="exportConfig()"><div class="child-card-left"><div class="icon-circle-sm"><svg viewBox="0 0 24 24"><path opacity="0.5" d="M10 20H14C14.6595 20 15.2613 20 15.8118 19.9937L15.409 19.591C14.5303 18.7123 14.5303 17.2877 15.409 16.409C15.7847 16.0334 16.2601 15.8183 16.75 15.7638V14C16.75 12.7574 17.7574 11.75 19 11.75C20.2426 11.75 21.25 12.7574 21.25 14V15.7638C21.4739 15.7887 21.6947 15.8471 21.9044 15.9391C22 14.9172 22 13.636 22 12C22 11.5581 22 10.392 21.9981 10H2.00189C2 10.392 2 11.5581 2 12C2 15.7712 2 17.6569 3.17157 18.8284C4.34315 20 6.22876 20 10 20Z" class="icon-bg"/><path fill-rule="evenodd" d="M18.4697 20.5303C18.7626 20.8232 19.2374 20.8232 19.5303 20.5303L21.5303 18.5303C21.8232 18.2374 21.8232 17.7626 21.5303 17.4697C21.2374 17.1768 20.7626 17.1768 20.4697 17.4697L19.75 18.1893V14C19.75 13.5858 19.4142 13.25 19 13.25C18.5858 13.25 18.25 13.5858 18.25 14V18.1893L17.5303 17.4697C17.2374 17.1768 16.7626 17.1768 16.4697 17.4697C16.1768 17.7626 16.1768 18.2374 16.4697 18.5303L18.4697 20.5303Z" class="icon-fg"/><path d="M12.5 15.25C12.0858 15.25 11.75 15.5858 11.75 16C11.75 16.4142 12.0858 16.75 12.5 16.75H14C14.4142 16.75 14.75 16.4142 14.75 16C14.75 15.5858 14.4142 15.25 14 15.25H12.5Z" class="icon-fg"/><path d="M6 15.25C5.58579 15.25 5.25 15.5858 5.25 16C5.25 16.4142 5.58579 16.75 6 16.75H10C10.4142 16.75 10.75 16.4142 10.75 16C10.75 15.5858 10.4142 15.25 10 15.25H6Z" class="icon-fg"/><path d="M9.99484 4H14.0052C17.7861 4 19.6766 4 20.8512 5.11578C21.6969 5.91916 21.9337 7.07507 22 9V10H2V9C2.0663 7.07507 2.3031 5.91916 3.14881 5.11578C4.3234 4 6.21388 4 9.99484 4Z" class="icon-fg"/></svg></div><div><div class="child-card-label">导出配置</div><div class="child-card-desc">备份到本地文件</div></div></div><span class="child-card-arrow">›</span></div>
                         <div class="child-card" onclick="copyConfig()"><div class="child-card-left"><div class="icon-circle-sm"><svg viewBox="0 0 24 24"><path d="M12 2 L12 8.5 C12 9.32843 12.6716 10 13.5 10 L20 10 L20 20 C20 21.1046 19.1046 22 18 22 L6 22 C4.89543 22 4 21.1046 4 20 L4 4 C4 2.89543 4.89543 2 6 2 L12 2 Z M12 11 C11.4477 11 11 11.4477 11 12 L11 14.7084 L10.5858 14.2942 C10.1953 13.9037 9.5621 13.9037 9.17157 14.2942 C8.78105 14.6847 8.78105 15.3179 9.17157 15.7084 L11.2929 17.8298 C11.6834 18.2203 12.3166 18.2203 12.7071 17.8298 L14.8284 15.7084 C15.219 15.3179 15.219 14.6847 14.8284 14.2942 C14.4379 13.9037 13.8047 13.9037 13.4142 14.2942 L13 14.7084 L13 12 C13 11.4477 12.5523 11 12 11 Z M14 2.04336 C14.3759 2.12295 14.7241 2.30991 15 2.58579 L19.4142 7 C19.6901 7.27588 19.8771 7.62406 19.9566 8 L14 8 Z" class="icon-fg-blue"/></svg></div><div><div class="child-card-label">复制配置</div><div class="child-card-desc">复制到剪贴板</div></div></div><span class="child-card-arrow">›</span></div>
-                        <div class="child-card" onclick="pasteConfig()"><div class="child-card-left"><div class="icon-circle-sm"><svg viewBox="0 0 24 24"><path d="M12 2 L12 8.5 C12 9.69882 12.5949 9.920449 13.3555 9.993133L13.5 10 L20 10 L20 20 C20 21.0544 19.1842 21.91817 18.1493 21.99451L18 22 L6 22 C4.94564 22 4.08183 21.18415 4.00549 20.14927L4 20 L4 4 C4 2.94564 4.81588 2.08183 5.85074 2.00549L6 2 L12 2 Z M11.2929 11.1729 L9.17157 13.2942 C8.78105 13.6847 8.78105 14.3179 9.17157 14.7084 C9.5621 15.099 10.1953 15.099 10.5858 14.7084 L11 14.2942 L11 17 C11 17.5523 11.4477 18 12 18 C12.5523 18 13 17.5523 13 17 L13 14.2942 L13.4142 14.7084 C13.8047 15.099 14.4379 15.099 14.8284 14.7084 C15.219 14.3179 15.219 13.6847 14.8284 13.2942 L12.7071 11.1729 C12.3166 10.7824 11.6834 10.7824 11.2929 11.1729 Z M14 2.04336 C14.3222 2.11158 14.624 2.25868 14.8775 2.47305L15 2.58579 L19.4142 7 C19.6507 7.23647 19.8219 7.52606 19.916 7.84071L19.9566 8 L14 8 Z" class="icon-fg-blue"/></svg></div><div><div class="child-card-label">粘贴配置</div><div class="child-card-desc">从剪贴板导入</div></div></div><span class="child-card-arrow">›</span></div>
+                        <div class="child-card" onclick="pasteConfig()"><div class="child-card-left"><div class="icon-circle-sm"><svg viewBox="0 0 24 24"><path d="M12 2 L12 8.5 C12 9.27969882 12.5949121 9.920449 13.3555442 9.99313345 L13.5 10 L20 10 L20 20 C20 21.0543909 19.18415 21.9181678 18.1492661 21.9945144 L18 22 L6 22 C4.94563773 22 4.08183483 21.18415 4.00548573 20.1492661 L4 20 L4 4 C4 2.94563773 4.81587733 2.08183483 5.85073759 2.00548573 L6 2 L12 2 Z M11.2929 11.1729 L9.17157 13.2942 C8.78105 13.6847 8.78105 14.3179 9.17157 14.7084 C9.5621 15.099 10.1953 15.099 10.5858 14.7084 L11 14.2942 L11 17 C11 17.5523 11.4477 18 12 18 C12.5523 18 13 17.5523 13 17 L13 14.2942 L13.4142 14.7084 C13.8047 15.099 14.4379 15.099 14.8284 14.7084 C15.219 14.3179 15.219 13.6847 14.8284 13.2942 L12.7071 11.1729 C12.3166 10.7824 11.6834 10.7824 11.2929 11.1729 Z M14 2.04336 C14.3222 2.11158 14.624049 2.25868408 14.8774606 2.47305359 L15 2.58579 L19.4142 7 C19.6506857 7.23646857 19.8218571 7.52605551 19.9160012 7.8407123 L19.9566 8 L14 8 Z" class="icon-fg-blue"/></svg></div><div><div class="child-card-label">粘贴配置</div><div class="child-card-desc">从剪贴板导入</div></div></div><span class="child-card-arrow">›</span></div>
                         <div class="child-card" onclick="importConfig()"><div class="child-card-left"><div class="icon-circle-sm"><svg viewBox="0 0 24 24"><path opacity="0.5" d="M14 20H10C6.22876 20 4.34315 20 3.17157 18.8284C2 17.6569 2 15.7712 2 12C2 11.5581 2.00188 10.392 2.00377 10H22C22.0019 10.392 22 11.5581 22 12C22 12.6595 22 13.2613 21.9937 13.8118L20.591 12.409C19.7123 11.5303 18.2877 11.5303 17.409 12.409L15.409 14.409C14.5303 15.2877 14.5303 16.7123 15.409 17.591C15.7847 17.9666 16.2601 18.1817 16.75 18.2362V19.9743C15.964 20 15.0559 20 14 20Z" class="icon-bg"/><path fill-rule="evenodd" d="M18.4697 13.4697C18.7626 13.1768 19.2374 13.1768 19.5303 13.4697L21.5303 15.4697C21.8232 15.7626 21.8232 16.2374 21.5303 16.5303C21.2374 16.8232 20.7626 16.8232 20.4697 16.5303L19.75 15.8107V20C19.75 20.4142 19.4142 20.75 19 20.75C18.5858 20.75 18.25 20.4142 18.25 20V15.8107L17.5303 16.5303C17.2374 16.8232 16.7626 16.8232 16.4697 16.5303C16.1768 16.2374 16.1768 15.7626 16.4697 15.4697L18.4697 13.4697Z" class="icon-fg"/><path d="M12.5 15.25C12.0858 15.25 11.75 15.5858 11.75 16C11.75 16.4142 12.0858 16.75 12.5 16.75H14C14.4142 16.75 14.75 16.4142 14.75 16C14.75 15.5858 14.4142 15.25 14 15.25H12.5Z" class="icon-fg"/><path d="M6 15.25C5.58579 15.25 5.25 15.5858 5.25 16C5.25 16.4142 5.58579 16.75 6 16.75H10C10.4142 16.75 10.75 16.4142 10.75 16C10.75 15.5858 10.4142 15.25 10 15.25H6Z" class="icon-fg"/><path d="M9.99484 4H14.0052C17.7861 4 19.6766 4 20.8512 5.11578C21.6969 5.91916 21.9337 7.07507 22 9V10H2V9C2.0663 7.07507 2.3031 5.91916 3.14881 5.11578C4.3234 4 6.21388 4 9.99484 4Z" class="icon-fg"/></svg></div><div><div class="child-card-label">导入配置</div><div class="child-card-desc">从文件导入</div></div></div><span class="child-card-arrow">›</span></div>
                         <div class="child-card" onclick="clearCache()"><div class="child-card-left"><div class="icon-circle-sm"><svg viewBox="0 0 24 24"><path d="M3 6.38597C3 5.90152 3.34538 5.50879 3.77143 5.50879L6.43567 5.50832C6.96502 5.49306 7.43202 5.11033 7.61214 4.54412C7.61688 4.52923 7.62232 4.51087 7.64185 4.44424L7.75665 4.05256C7.8269 3.81241 7.8881 3.60318 7.97375 3.41617C8.31209 2.67736 8.93808 2.16432 9.66147 2.03297C9.84457 1.99972 10.0385 1.99986 10.2611 2.00002H13.7391C13.9617 1.99986 14.1556 1.99972 14.3387 2.03297C15.0621 2.16432 15.6881 2.67736 16.0264 3.41617C16.1121 3.60318 16.1733 3.81241 16.2435 4.05256L16.3583 4.44424C16.3778 4.51087 16.3833 4.52923 16.388 4.54412C16.5682 5.11033 17.1278 5.49353 17.6571 5.50879H20.2286C20.6546 5.50879 21 5.90152 21 6.38597C21 6.87043 20.6546 7.26316 20.2286 7.26316H3.77143C3.34538 7.26316 3 6.87043 3 6.38597Z" class="icon-fg"/><path fill-rule="evenodd" d="M9.42543 11.4815C9.83759 11.4381 10.2051 11.7547 10.2463 12.1885L10.7463 17.4517C10.7875 17.8855 10.4868 18.2724 10.0747 18.3158C9.66253 18.3592 9.29499 18.0426 9.25378 17.6088L8.75378 12.3456C8.71256 11.9118 9.01327 11.5249 9.42543 11.4815Z" class="icon-fg"/><path fill-rule="evenodd" d="M14.5747 11.4815C14.9868 11.5249 15.2875 11.9118 15.2463 12.3456L14.7463 17.6088C14.7051 18.0426 14.3376 18.3592 13.9254 18.3158C13.5133 18.2724 13.2126 17.8855 13.2538 17.4517L13.7538 12.1885C13.795 11.7547 14.1625 11.4381 14.5747 11.4815Z" class="icon-fg"/><path opacity="0.5" d="M11.5956 22.0001H12.4044C15.1871 22.0001 16.5785 22.0001 17.4831 21.1142C18.3878 20.2283 18.4803 18.7751 18.6654 15.8686L18.9321 11.6807C19.0326 10.1037 19.0828 9.31524 18.6289 8.81558C18.1751 8.31592 17.4087 8.31592 15.876 8.31592H8.12405C6.59127 8.31592 5.82488 8.31592 5.37105 8.81558C4.91722 9.31524 4.96744 10.1037 5.06788 11.6807L5.33459 15.8686C5.5197 18.7751 5.61225 20.2283 6.51689 21.1142C7.42153 22.0001 8.81289 22.0001 11.5956 22.0001Z" class="icon-bg"/></svg></div><div><div class="child-card-label">清除缓存</div><div class="child-card-desc">清空基金数据缓存</div></div></div><span class="child-card-arrow">›</span></div>
-                        <div class="child-card" onclick="resetProfitHistory()"><div class="child-card-left"><div class="icon-circle-sm"><svg viewBox="0 0 24 24"><path d="M14.2792 2 C15.1401 2 15.9044 2.55086 16.1766 3.36754 L16.7208 5 L20 5 C20.5523 5 21 5.44772 21 6 C21 6.55227 20.5523 6.99998 20 7 L19.9975 7.07125 L19.1301 19.2137 C19.018 20.7837 17.7117 22 16.1378 22 L7.86224 22 C6.28832 22 4.982 20.7837 4.86986 19.2137 L4.00254 7.07125 C4.00083 7.04735 3.99998 7.02359 3.99996 7 C3.44769 6.99998 3 6.55227 3 6 C3 5.44772 3.44772 5 4 5 L7.27924 5 L7.82339 3.36754 C8.09562 2.55086 8.8599 2 9.72076 2 L14.2792 2 Z M9 10 C8.48716 10 8.06449 10.386 8.00673 10.8834 L8 11 L8 17 C8 17.5523 8.44771 18 9 18 C9.51284 18 9.93551 17.614 9.99327 17.1166 L10 17 L10 11 C10 10.4477 9.55229 10 9 10 Z M15 10 C14.4477 10 14 10.4477 14 11 L14 17 C14 17.5523 14.4477 18 15 18 C15.5523 18 16 17.5523 16 17 L16 11 C16 10.4477 15.5523 10 15 10 Z M14.2792 4 L9.72076 4 L9.38743 5 L14.6126 5 L14.2792 4 Z" class="icon-fg-blue"/></svg></div><div><div class="child-card-label">重置收益历史</div><div class="child-card-desc">清空所有收益数据</div></div></div><span class="child-card-arrow">›</span></div>
+                        <div class="child-card" onclick="resetProfitHistory()"><div class="child-card-left"><div class="icon-circle-sm"><svg viewBox="0 0 24 24"><path d="M14.2792 2 C15.1401 2 15.9044 2.55086 16.1766 3.36754 L16.7208 5 L20 5 C20.5523 5 21 5.44772 21 6 C21 6.55227 20.5523 6.99998 20 7 L19.9975 7.07125 L19.1301 19.2137 C19.018 20.7837 17.7117 22 16.1378 22 L7.86224 22 C6.28832 22 4.982 20.7837 4.86986 19.2137 L4.00254 7.07125 C4.00083 7.04735 3.99998 7.02359 3.99996 7 C3.44769 6.99998 3 6.55227 3 6 C3 5.44772 3.44772 5 4 5 L7.27924 5 L7.82339 3.36754 C8.09562 2.55086 8.8599 2 9.72076 2 L14.2792 2 Z M9 10 C8.48715929 10 8.06449214 10.386027 8.00672766 10.8833761 L8 11 L8 17 C8 17.5523 8.44771 18 9 18 C9.51284071 18 9.93550786 17.613973 9.99327234 17.1166239 L10 17 L10 11 C10 10.4477 9.55229 10 9 10 Z M15 10 C14.4477 10 14 10.4477 14 11 L14 17 C14 17.5523 14.4477 18 15 18 C15.5523 18 16 17.5523 16 17 L16 11 C16 10.4477 15.5523 10 15 10 Z M14.2792 4 L9.72076 4 L9.38743 5 L14.6126 5 L14.2792 4 Z" class="icon-fg-blue"/></svg></div><div><div class="child-card-label">重置收益历史</div><div class="child-card-desc">清空所有收益数据</div></div></div><span class="child-card-arrow">›</span></div>
                     </div>
                 </div>
             </div>
@@ -1610,8 +1605,8 @@
                     <div class="section-title-static"><span>主题模式</span></div>
                     <div class="section-desc">选择深色或浅色外观</div>
                     <div class="child-cards">
-                        <div class="child-card selected" id="themeDark" onclick="setTheme('dark')"><div class="child-card-left"><div class="icon-circle-sm"><svg viewBox="0 0 24 24"><path d="M12.4769 4.54557C12.1415 3.79855 12.7837 2.99779 13.5739 3.13729C17.7941 3.88225 21 7.5657 21 12C21 16.9705 16.9705 21 12 21C7.5657 21 3.88225 17.7941 3.13729 13.5739C2.99778 12.7836 3.79861 12.1416 4.54557 12.4769C5.29352 12.8127 6.12352 13 6.99996 13C10.3137 13 13 10.3137 13 6.99996C13 6.12352 12.8127 5.29352 12.4769 4.54557 Z M5.56482 7.71573 L5.62857 7.85506C5.90134 8.41936 6.33105 8.89305 6.86601 9.21934 L6.96534 9.27755C7.0115 9.30351 7.0115 9.36997 6.96534 9.39593 L6.86601 9.45414C6.33105 9.78043 5.90134 10.2541 5.62857 10.8184 L5.56482 10.9577C5.53984 11.0139 5.46007 11.0139 5.4351 10.9577 L5.37134 10.8184C5.09857 10.2541 4.66887 9.78043 4.13391 9.45414 L4.03457 9.39593C3.98842 9.36997 3.98842 9.30351 4.03457 9.27755 L4.13391 9.21934C4.66887 8.89305 5.09857 8.41936 5.37134 7.85506 L5.4351 7.71573C5.46007 7.65953 5.53984 7.65953 5.56482 7.71573 Z M8.39662 2.85738C8.43638 2.76792 8.56335 2.76792 8.6031 2.85738 L8.70458 3.07914C9.13876 3.97736 9.82274 4.73135 10.6743 5.25072 L10.8324 5.34337C10.9058 5.38469 10.9058 5.49048 10.8324 5.5318 L10.6743 5.62445C9.82274 6.14382 9.13876 6.89781 8.70458 7.79603C8.66919 7.86924 8.63613 7.94349 8.6031 8.0178C8.56335 8.10725 8.43638 8.10725 8.39662 8.0178 L8.29515 7.79603C7.86097 6.89781 7.17699 6.14382 6.32548 5.62445 L6.16736 5.5318C6.09389 5.49048 6.09389 5.38469 6.16736 5.34337 L6.32548 5.25072C7.17699 4.73135 7.86097 3.97736 8.29515 3.07914 L8.39662 2.85738 Z" class="icon-fg-blue"/></svg></div><div><div class="child-card-label">深色模式</div><div class="child-card-desc">深色背景，更省电</div></div></div><span class="child-card-check">✓</span></div>
-                        <div class="child-card" id="themeLight" onclick="setTheme('light')"><div class="child-card-left"><div class="icon-circle-sm"><svg viewBox="0 0 24 24"><path d="M12.1914 19.9978 C12.7436 19.9848 13.2016 20.4219 13.2146 20.9741 C13.2275 21.5262 12.7904 21.9843 12.2383 21.9972 L12 22 L11.7617 21.9972 C11.2096 21.9843 10.7725 21.5262 10.7854 20.9741 C10.7984 20.4219 11.2564 19.9848 11.8086 19.9978 L12 20 L12.1914 19.9978 Z M16.1635 18.8327 C16.6348 18.5448 17.2503 18.6935 17.5381 19.1649 C17.826 19.6362 17.6773 20.2516 17.206 20.5395 C17.0708 20.6221 16.9334 20.7016 16.794 20.7779 C16.3095 21.043 15.7018 20.8652 15.4367 20.3807 C15.1716 19.8962 15.3494 19.2885 15.8339 19.0234 C15.9454 18.9624 16.0553 18.8988 16.1635 18.8327 Z M6.46185 19.1649 C6.74974 18.6935 7.3652 18.5448 7.83651 18.8327 C7.94472 18.8988 8.0546 18.9624 8.16608 19.0234 C8.65058 19.2885 8.82843 19.8962 8.56332 20.3807 C8.29821 20.8652 7.69054 21.043 7.20604 20.7779 C7.06663 20.7016 6.92924 20.6221 6.79398 20.5395 C6.32267 20.2516 6.17397 19.6362 6.46185 19.1649 Z M12 6 C15.3137 6 18 8.68629 18 12 C18 15.3137 15.3137 18 12 18 C8.68629 18 6 15.3137 6 12 C6 8.68629 8.68629 6 12 6 Z M19.0234 15.8339 C19.2885 15.3494 19.8962 15.1716 20.3807 15.4367 C20.8652 15.7018 21.043 16.3095 20.7779 16.794 C20.7016 16.9334 20.6221 17.0708 20.5395 17.206 C20.2516 17.6773 19.6362 17.826 19.1649 17.5381 C18.6935 17.2503 18.5448 16.6348 18.8327 16.1635 C18.8988 16.0553 18.9624 15.9454 19.0234 15.8339 Z M3.61932 15.4367 C4.10382 15.1716 4.71149 15.3494 4.9766 15.8339 C5.0376 15.9454 5.10118 16.0553 5.16728 16.1635 C5.45516 16.6348 5.30646 17.2503 4.83514 17.5381 C4.36383 17.826 3.74837 17.6773 3.46048 17.206 C3.37787 17.0708 3.29837 16.9334 3.22208 16.794 C2.95697 16.3095 3.13482 15.7018 3.61932 15.4367 Z M12 10 C10.8954 10 10 10.8954 10 12 C10 13.1046 10.8954 14 12 14 C13.1046 14 14 13.1046 14 12 C14 10.8954 13.1046 10 12 10 Z M3.02594 10.7854 C3.57807 10.7984 4.01518 11.2564 4.00224 11.8086 L4.00056 12.0959 L4.00224 12.1914 C4.01518 12.7436 3.57807 13.2016 3.02594 13.2146 C2.4738 13.2275 2.01572 12.7904 2.00279 12.2383 L2.0007 11.8807 L2.00279 11.7617 C2.01572 11.2096 2.4738 10.7725 3.02594 10.7854 Z M20.9741 10.7854 C21.5262 10.7725 21.9843 11.2096 21.9972 11.7617 L22 12 L21.9972 12.2383 C21.9843 12.7904 21.5262 13.2275 20.9741 13.2146 C20.4219 13.2016 19.9848 12.7436 19.9978 12.1914 L20 12 L19.9978 11.8086 C19.9848 11.2564 20.4219 10.7984 20.9741 10.7854 Z M19.1649 6.46185 C19.6362 6.17397 20.2516 6.32267 20.5395 6.79398 C20.6221 6.92924 20.7016 7.06663 20.7779 7.20604 C21.043 7.69054 20.8652 8.29821 20.3807 8.56332 C19.8962 8.82843 19.2885 8.65058 19.0234 8.16608 C18.9624 8.0546 18.8988 7.94472 18.8327 7.83651 C18.5448 7.3652 18.6935 6.74974 19.1649 6.46185 Z M3.46048 6.79398 C3.74837 6.32267 4.36383 6.17397 4.83514 6.46185 C5.30646 6.74974 5.45516 7.3652 5.16727 7.83651 C5.10118 7.94472 5.0376 8.0546 4.9766 8.16608 C4.71149 8.65058 4.10382 8.82843 3.61932 8.56332 C3.13482 8.29821 2.95697 7.69054 3.22208 7.20604 C3.29837 7.06663 3.37787 6.92924 3.46048 6.79398 Z M15.4367 3.61932 C15.7018 3.13482 16.3095 2.95697 16.794 3.22208 C16.9334 3.29837 17.0708 3.37787 17.206 3.46048 C17.6773 3.74837 17.826 4.36383 17.5381 4.83514 C17.2503 5.30646 16.6348 5.45516 16.1635 5.16727 C16.0553 5.10118 15.9454 5.0376 15.8339 4.9766 C15.3494 4.71149 15.1716 4.10382 15.4367 3.61932 Z M7.20604 3.22208 C7.69054 2.95697 8.29821 3.13482 8.56332 3.61932 C8.82843 4.10382 8.65058 4.71149 8.16608 4.9766 C8.0546 5.0376 7.94472 5.10118 7.83651 5.16728 C7.3652 5.45516 6.74974 5.30646 6.46185 4.83514 C6.17397 4.36383 6.32267 3.74837 6.79398 3.46048 C6.92924 3.37787 7.06663 3.29837 7.20604 3.22208 Z M12 2 L12.2383 2.00279 C12.7904 2.01572 13.2275 2.4738 13.2146 3.02594 C13.2016 3.57807 12.7436 4.01518 12.1914 4.00224 L12 4 L11.8086 4.00224 C11.2564 4.01518 10.7984 3.57807 10.7854 3.02594 C10.7725 2.4738 11.2096 2.01572 11.7617 2.00279 L12 2 Z" class="icon-fg-blue"/></svg></div><div><div class="child-card-label">浅色模式</div><div class="child-card-desc">浅色背景，更清晰</div></div></div><span class="child-card-check">✓</span></div>
+                        <div class="child-card selected" id="themeDark" onclick="setTheme('dark')"><div class="child-card-left"><div class="icon-circle-sm"><svg viewBox="0 0 24 24"><path d="M12.4769 4.54557C12.1415 3.79855 12.7837 2.99779 13.5739 3.13729C17.7941 3.88225 21 7.5657 21 12C21 16.9705 16.9705 21 12 21C7.5657 21 3.88225 17.7941 3.13729 13.5739C2.99778 12.7836 3.79861 12.1416 4.54557 12.4769C5.29352 12.8127 6.12352 13 6.99996 13C10.3137 13 13 10.3137 13 6.99996C13 6.12352 12.8127 5.29352 12.4769 4.54557 Z M5.56482 7.71573 L5.62857 7.85506 C5.90134 8.41936 6.33105 8.89305 6.86601 9.21934 L6.96534 9.27755 C7.0115 9.30351 7.0115 9.36997 6.96534 9.39593 L6.86601 9.45414 C6.33105 9.78043 5.90134 10.2541 5.62857 10.8184 L5.56482 10.9577 C5.53984 11.0139 5.46007 11.0139 5.4351 10.9577 L5.37134 10.8184 C5.09857 10.2541 4.66887 9.78043 4.13391 9.45414 L4.03457 9.39593 C3.98842 9.36997 3.98842 9.30351 4.03457 9.27755 L4.13391 9.21934 C4.66887 8.89305 5.09857 8.41936 5.37134 7.85506 L5.4351 7.71573 C5.46007 7.65953 5.53984 7.65953 5.56482 7.71573 Z M8.39662 2.85738 C8.43638 2.76792 8.56335 2.76792 8.6031 2.85738 L8.70458 3.07914 C9.13876 3.97736 9.82274 4.73135 10.6743 5.25072 L10.8324 5.34337 C10.9058 5.38469 10.9058 5.49048 10.8324 5.5318 L10.6743 5.62445 C9.82274 6.14382 9.13876 6.89781 8.70458 7.79603 C8.66919 7.86924 8.63613 7.94349 8.6031 8.0178 C8.56335 8.10725 8.43638 8.10725 8.39662 8.0178 L8.29515 7.79603 C7.86097 6.89781 7.17699 6.14382 6.32548 5.62445 L6.16736 5.5318 C6.09389 5.49048 6.09389 5.38469 6.16736 5.34337 L6.32548 5.25072 C7.17699 4.73135 7.86097 3.97736 8.29515 3.07914 L8.39662 2.85738 Z" class="icon-fg-blue"/></svg></div><div><div class="child-card-label">深色模式</div><div class="child-card-desc">深色背景，更省电</div></div></div><span class="child-card-check">✓</span></div>
+                        <div class="child-card" id="themeLight" onclick="setTheme('light')"><div class="child-card-left"><div class="icon-circle-sm"><svg viewBox="0 0 24 24"><path d="M12.1914 19.9978 C12.7436 19.9848 13.2016 20.4219 13.2146 20.9741 C13.2275 21.5262 12.7904 21.9843 12.2383 21.9972 L12 22 L11.7617 21.9972 C11.2096 21.9843 10.7725 21.5262 10.7854 20.9741 C10.7984 20.4219 11.2564 19.9848 11.8086 19.9978 L12 20 L12.1914 19.9978 Z M16.1635 18.8327 C16.6348 18.5448 17.2503 18.6935 17.5381 19.1649 C17.826 19.6362 17.6773 20.2516 17.206 20.5395 C17.0708 20.6221 16.9334 20.7016 16.794 20.7779 C16.3095 21.043 15.7018 20.8652 15.4367 20.3807 C15.1716 19.8962 15.3494 19.2885 15.8339 19.0234 C15.9454 18.9624 16.0553 18.8988 16.1635 18.8327 Z M6.46185 19.1649 C6.74974 18.6935 7.3652 18.5448 7.83651 18.8327 C7.94472 18.8988 8.0546 18.9624 8.16608 19.0234 C8.65058 19.2885 8.82843 19.8962 8.56332 20.3807 C8.29821 20.8652 7.69054 21.043 7.20604 20.7779 C7.06663 20.7016 6.92924 20.6221 6.79398 20.5395 C6.32267 20.2516 6.17397 19.6362 6.46185 19.1649 Z M12 6 C15.3137 6 18 8.68629 18 12 C18 15.3137 15.3137 18 12 18 C8.68629 18 6 15.3137 6 12 C6 8.68629 8.68629 6 12 6 Z M19.0234 15.8339 C19.2885 15.3494 19.8962 15.1716 20.3807 15.4367 C20.8652 15.7018 21.043 16.3095 20.7779 16.794 C20.7016 16.9334 20.6221 17.0708 20.5395 17.206 C20.2516 17.6773 19.6362 17.826 19.1649 17.5381 C18.6935 17.2503 18.5448 16.6348 18.8327 16.1635 C18.8988 16.0553 18.9624 15.9454 19.0234 15.8339 Z M3.61932 15.4367 C4.10382 15.1716 4.71149 15.3494 4.9766 15.8339 C5.0376 15.9454 5.10118 16.0553 5.16728 16.1635 C5.45516 16.6348 5.30646 17.2503 4.83514 17.5381 C4.36383 17.826 3.74837 17.6773 3.46048 17.206 C3.37787 17.0708 3.29837 16.9334 3.22208 16.794 C2.95697 16.3095 3.13482 15.7018 3.61932 15.4367 Z M12 10 C10.8954 10 10 10.8954 10 12 C10 13.1046 10.8954 14 12 14 C13.1046 14 14 13.1046 14 12 C14 10.8954 13.1046 10 12 10 Z M3.02594 10.7854 C3.57807 10.7984 4.01518 11.2564 4.00224 11.8086 L4.00056125 12.09585 L4.00224 12.1914 C4.01518 12.7436 3.57807 13.2016 3.02594 13.2146 C2.4738 13.2275 2.01572 12.7904 2.00279 12.2383 L2.0006975 11.8807 L2.00279 11.7617 C2.01572 11.2096 2.4738 10.7725 3.02594 10.7854 Z M20.9741 10.7854 C21.5262 10.7725 21.9843 11.2096 21.9972 11.7617 L22 12 L21.9972 12.2383 C21.9843 12.7904 21.5262 13.2275 20.9741 13.2146 C20.4219 13.2016 19.9848 12.7436 19.9978 12.1914 L20 12 L19.9978 11.8086 C19.9848 11.2564 20.4219 10.7984 20.9741 10.7854 Z M19.1649 6.46185 C19.6362 6.17397 20.2516 6.32267 20.5395 6.79398 C20.6221 6.92924 20.7016 7.06663 20.7779 7.20604 C21.043 7.69054 20.8652 8.29821 20.3807 8.56332 C19.8962 8.82843 19.2885 8.65058 19.0234 8.16608 C18.9624 8.0546 18.8988 7.94472 18.8327 7.83651 C18.5448 7.3652 18.6935 6.74974 19.1649 6.46185 Z M3.46048 6.79398 C3.74837 6.32267 4.36383 6.17397 4.83514 6.46185 C5.30646 6.74974 5.45516 7.3652 5.16727 7.83651 C5.10118 7.94472 5.0376 8.0546 4.9766 8.16608 C4.71149 8.65058 4.10382 8.82843 3.61932 8.56332 C3.13482 8.29821 2.95697 7.69054 3.22208 7.20604 C3.29837 7.06663 3.37787 6.92924 3.46048 6.79398 Z M15.4367 3.61932 C15.7018 3.13482 16.3095 2.95697 16.794 3.22208 C16.9334 3.29837 17.0708 3.37787 17.206 3.46048 C17.6773 3.74837 17.826 4.36383 17.5381 4.83514 C17.2503 5.30646 16.6348 5.45516 16.1635 5.16727 C16.0553 5.10118 15.9454 5.0376 15.8339 4.9766 C15.3494 4.71149 15.1716 4.10382 15.4367 3.61932 Z M7.20604 3.22208 C7.69054 2.95697 8.29821 3.13482 8.56332 3.61932 C8.82843 4.10382 8.65058 4.71149 8.16608 4.9766 C8.0546 5.0376 7.94472 5.10118 7.83651 5.16728 C7.3652 5.45516 6.74974 5.30646 6.46185 4.83514 C6.17397 4.36383 6.32267 3.74837 6.79398 3.46048 C6.92924 3.37787 7.06663 3.29837 7.20604 3.22208 Z M12 2 L12.2383 2.00279 C12.7904 2.01572 13.2275 2.4738 13.2146 3.02594 C13.2016 3.57807 12.7436 4.01518 12.1914 4.00224 L12 4 L11.8086 4.00224 C11.2564 4.01518 10.7984 3.57807 10.7854 3.02594 C10.7725 2.4738 11.2096 2.01572 11.7617 2.00279 L12 2 Z" class="icon-fg-blue"/></svg></div><div><div class="child-card-label">浅色模式</div><div class="child-card-desc">浅色背景，更清晰</div></div></div><span class="child-card-check">✓</span></div>
                     </div>
                 </div>
                 <div class="section-group">
@@ -1684,19 +1679,276 @@
     <script>
         // ================================================================
         //  Fund Holder · 完整版
-        //  时间逻辑：
-        //  - 非交易日 / 交易日 9:00 前：显示昨日净值 + 昨日估值
-        //  - 交易日 9:00 后：右侧净值隐藏（--），左侧显示实时估值
-        //  - 估值抓取：交易日 9:15~15:15，每5分钟
-        //  - 净值抓取：交易日 19:30 开始，逐个抓取，抓到即固定，直到全部抓到
-        //  - 抓到的净值显示到第二个交易日 9:00
+        //  自选页 = 估值 | 净值 并排等大字体
         // ================================================================
 
+        // ===== 收益修正弹窗 =====
         (function() {
-            // ----- 工具函数 -----
-            function getMinutesSinceMidnight() {
-                var now = new Date();
-                return now.getHours() * 60 + now.getMinutes();
+            var overlay = document.getElementById('profitModalOverlay');
+            var cardStack = document.getElementById('profitCardStack');
+            var dateDisplay = document.getElementById('profitDateDisplay');
+            var calendarCard = document.getElementById('profitCalendarCard');
+            var monthYear = document.getElementById('profitMonthYear');
+            var calendarDays = document.getElementById('profitCalendarDays');
+            var signToggle = document.getElementById('profitSignToggle');
+            var prevBtn = document.getElementById('profitPrevBtn');
+            var nextBtn = document.getElementById('profitNextBtn');
+            var cancelBtn = document.getElementById('profitCancelBtn');
+            var confirmBtn = document.getElementById('profitConfirmBtn');
+            var profitInput = document.getElementById('profitInput');
+
+            var year = 2026,
+                month = 6;
+            var selectedDate = '';
+            var isCalendarOpen = false;
+
+            function pad(n) { return String(n).padStart(2, '0'); }
+
+            function formatKey(y, m, d) { return y + '-' + pad(m) + '-' + pad(d); }
+
+            function renderCalendar(y, m) {
+                try {
+                    if (!calendarDays) return;
+                    var first = new Date(y, m - 1, 1);
+                    var last = new Date(y, m, 0);
+                    var daysInMonth = last.getDate();
+                    var startWeekday = first.getDay();
+                    var offset = startWeekday === 0 ? 6 : startWeekday - 1;
+                    var prevLast = new Date(y, m - 1, 0).getDate();
+                    var html = '';
+
+                    var prevY = y,
+                        prevM = m - 1;
+                    if (prevM < 1) { prevM = 12;
+                        prevY--; }
+                    for (var i = offset - 1; i >= 0; i--) {
+                        var day = prevLast - i;
+                        html += '<button class="calendar-day other-month" data-y="' + prevY + '" data-m="' + prevM + '" data-d="' + day + '">' +
+                            day + '</button>';
+                    }
+                    for (var d = 1; d <= daysInMonth; d++) {
+                        var key = formatKey(y, m, d);
+                        var cls = 'calendar-day';
+                        if (key === selectedDate) cls += ' selected';
+                        html += '<button class="' + cls + '" data-y="' + y + '" data-m="' + m + '" data-d="' + d + '">' + d +
+                            '</button>';
+                    }
+                    var total = offset + daysInMonth;
+                    var rows = Math.ceil(total / 7);
+                    var needed = rows * 7;
+                    var remain = needed - total;
+                    var nextY = y,
+                        nextM = m + 1;
+                    if (nextM > 12) { nextM = 1;
+                        nextY++; }
+                    for (var d2 = 1; d2 <= remain; d2++) {
+                        html += '<button class="calendar-day other-month" data-y="' + nextY + '" data-m="' + nextM + '" data-d="' +
+                            d2 + '">' + d2 + '</button>';
+                    }
+                    calendarDays.innerHTML = html;
+                    monthYear.textContent = y + '年' + m + '月';
+
+                    calendarDays.querySelectorAll('.calendar-day').forEach(function(btn) {
+                        btn.addEventListener('click', function() {
+                            try {
+                                var y = parseInt(this.dataset.y);
+                                var m = parseInt(this.dataset.m);
+                                var d = parseInt(this.dataset.d);
+                                var key = formatKey(y, m, d);
+                                selectedDate = key;
+                                dateDisplay.value = key;
+                                renderCalendar(year, month);
+                                closeCalendar();
+                            } catch (e) {
+                                console.error('选择日期时出错:', e);
+                            }
+                        });
+                    });
+                } catch (e) {
+                    console.error('渲染日历时出错:', e);
+                }
+            }
+
+            function prevMonth() {
+                var y = year,
+                    m = month - 1;
+                if (m < 1) { m = 12;
+                    y--; }
+                year = y;
+                month = m;
+                renderCalendar(year, month);
+            }
+
+            function nextMonth() {
+                var y = year,
+                    m = month + 1;
+                if (m > 12) { m = 1;
+                    y++; }
+                year = y;
+                month = m;
+                renderCalendar(year, month);
+            }
+
+            function openCalendar() {
+                if (isCalendarOpen) return;
+                isCalendarOpen = true;
+                if (cardStack) cardStack.classList.add('push-up');
+                if (calendarCard) calendarCard.classList.add('open');
+            }
+
+            function closeCalendar() {
+                if (!isCalendarOpen) return;
+                isCalendarOpen = false;
+                if (cardStack) cardStack.classList.remove('push-up');
+                if (calendarCard) calendarCard.classList.remove('open');
+            }
+
+            function toggleCalendar() {
+                if (isCalendarOpen) closeCalendar();
+                else openCalendar();
+            }
+
+            window.openProfitModal = function(currentProfit) {
+                try {
+                    if (!overlay || !dateDisplay || !profitInput || !signToggle || !calendarDays) {
+                        console.error('收益弹窗元素未找到');
+                        return;
+                    }
+                    var now = new Date();
+                    year = now.getFullYear();
+                    month = now.getMonth() + 1;
+                    var today = formatKey(year, month, now.getDate());
+                    selectedDate = today;
+                    dateDisplay.value = today;
+                    profitInput.value = '0.00';
+                    signToggle.textContent = '+';
+                    renderCalendar(year, month);
+                    overlay.classList.add('active');
+                    closeCalendar();
+                    setTimeout(function() {
+                        if (profitInput) {
+                            profitInput.focus();
+                            profitInput.select();
+                        }
+                    }, 300);
+                } catch (e) {
+                    console.error('打开收益弹窗时出错:', e);
+                }
+            };
+
+            cancelBtn.addEventListener('click', function() {
+                try {
+                    overlay.classList.remove('active');
+                    closeCalendar();
+                } catch (e) {
+                    console.error('取消时出错:', e);
+                }
+            });
+
+            confirmBtn.addEventListener('click', function() {
+                try {
+                    var date = dateDisplay.value;
+                    var rawVal = parseFloat(profitInput.value);
+                    var sign = signToggle.textContent.trim() === '−' ? -1 : 1;
+                    var profitVal = rawVal * sign;
+                    if (!date || isNaN(rawVal) || rawVal < 0) {
+                        alert('请选择日期并输入有效的正数金额');
+                        return;
+                    }
+                    if (window._saveProfit) {
+                        window._saveProfit(date, profitVal);
+                    }
+                    overlay.classList.remove('active');
+                    closeCalendar();
+                } catch (e) {
+                    console.error('确认收益修正时出错:', e);
+                    alert('操作失败，请重试');
+                }
+            });
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    closeCalendar();
+                }
+            });
+            dateDisplay.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleCalendar();
+            });
+            calendarCard.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+            signToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.textContent = this.textContent.trim() === '+' ? '−' : '+';
+            });
+            prevBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                prevMonth();
+            });
+            nextBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                nextMonth();
+            });
+            profitInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') confirmBtn.click();
+            });
+
+            var now = new Date();
+            year = now.getFullYear();
+            month = now.getMonth() + 1;
+            selectedDate = formatKey(year, month, now.getDate());
+            dateDisplay.value = selectedDate;
+            renderCalendar(year, month);
+        })();
+
+        // ===== 主逻辑 =====
+        (function() {
+            var $ = function(id) { return document.getElementById(id); };
+            var modalOverlayOld = $('modalOverlayOld');
+            var modalTitleOld = $('modalTitleOld');
+            var modalDescOld = $('modalDescOld');
+            var modalContentOld = $('modalContentOld');
+            var modalButtonsOld = $('modalButtonsOld');
+
+            function showModalOld(title, desc, contentHTML, buttons) {
+                modalTitleOld.textContent = title || '';
+                modalDescOld.textContent = desc || '';
+                modalContentOld.innerHTML = contentHTML || '';
+                modalButtonsOld.innerHTML = '';
+                if (buttons && buttons.length) {
+                    buttons.forEach(function(b) {
+                        var btn = document.createElement('button');
+                        btn.className = 'modal-btn ' + (b.cls || '');
+                        btn.textContent = b.text || '确定';
+                        btn.onclick = function() {
+                            modalOverlayOld.classList.remove('active');
+                            if (b.action) b.action();
+                        };
+                        modalButtonsOld.appendChild(btn);
+                    });
+                } else {
+                    var btn = document.createElement('button');
+                    btn.className = 'modal-btn primary';
+                    btn.textContent = '确定';
+                    btn.onclick = function() { modalOverlayOld.classList.remove('active'); };
+                    modalButtonsOld.appendChild(btn);
+                }
+                modalOverlayOld.classList.add('active');
+                modalOverlayOld.onclick = function(e) {
+                    if (e.target === modalOverlayOld) modalOverlayOld.classList.remove('active');
+                };
+            }
+
+            function escapeHTML(s) {
+                var d = document.createElement('div');
+                d.textContent = s;
+                return d.innerHTML;
+            }
+
+            function formatMoney(v) {
+                return (v >= 0 ? '+' : '') + v.toFixed(2);
             }
 
             function pad(n) { return String(n).padStart(2, '0'); }
@@ -1705,7 +1957,20 @@
                 return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
             }
 
-            // 2026年A股休市安排
+            function setTheme(t) {
+                document.documentElement.setAttribute('data-theme', t);
+                localStorage.setItem('app_theme', t);
+                var td = document.getElementById('themeDark'),
+                    tl = document.getElementById('themeLight');
+                if (td) td.classList.toggle('selected', t === 'dark');
+                if (tl) tl.classList.toggle('selected', t === 'light');
+                document.getElementById('themeColorMeta').setAttribute('content', t === 'dark' ? '#000000' : '#ffffff');
+                if (window.toggleThemeRefresh) toggleThemeRefresh();
+            }
+            window.setTheme = setTheme;
+            setTheme(localStorage.getItem('app_theme') || 'dark');
+
+            // ===== 2026年A股休市安排 =====
             var HOLIDAYS = new Set([
                 '2026-01-01', '2026-01-02', '2026-01-03',
                 '2026-02-15', '2026-02-16', '2026-02-17', '2026-02-18', '2026-02-19',
@@ -1725,69 +1990,128 @@
                 return !HOLIDAYS.has(ds);
             }
 
-            // 判断是否为交易日且时间 >= 9:00（精确到分钟）
-            function isTradingDayAfter9() {
+            function getMinutesSinceMidnight() {
+                var now = new Date();
+                return now.getHours() * 60 + now.getMinutes();
+            }
+
+            function isStrictTradingTime() {
                 if (!isTradingDay()) return false;
-                return getMinutesSinceMidnight() >= 540;
-            }
-
-            // 判断当前是否在估值抓取窗口（9:15 ~ 15:15）
-            function isEstimateFetchWindow() {
                 var m = getMinutesSinceMidnight();
-                return isTradingDay() && m >= 555 && m < 915;
+                return (m >= 570 && m < 690) || (m >= 780 && m < 900);
             }
 
-            // 判断当前是否在净值抓取窗口（19:30 开始）
-            function isNavFetchWindow() {
+            function updateTradeBadges() {
+                var active = isStrictTradingTime();
+                document.querySelectorAll('.trade-badge').forEach(function(badge) {
+                    if (active) badge.classList.add('active');
+                    else badge.classList.remove('active');
+                });
+            }
+
+            function isInEstimateWindow() {
                 var m = getMinutesSinceMidnight();
-                return isTradingDay() && m >= 1170; // 19:30 = 1170分钟
+                return m >= 555 && m < 915;
             }
 
-            // 获取最近交易日（用于净值日期匹配）
+            function isTradingTime() {
+                if (!isTradingDay()) return false;
+                return isInEstimateWindow();
+            }
+
+            function getAssetType(name) {
+                var ASSET_TYPE_MAP = {
+                    '股票型': ['股票', '权益', '指数', 'LOF', 'ETF'],
+                    '债券型': ['债券', '债', '纯债', '中短债'],
+                    '混合型': ['混合', '灵活', '平衡'],
+                    'QDII': ['QDII', '海外', '纳斯达克', '标普', '全球', '恒生']
+                };
+                for (var t in ASSET_TYPE_MAP) {
+                    var ks = ASSET_TYPE_MAP[t];
+                    for (var i = 0; i < ks.length; i++) {
+                        if (name.indexOf(ks[i]) !== -1) return t;
+                    }
+                }
+                return '其他';
+            }
+
+            function getDisplayData(code) {
+                var d = fundDataCache[code] || {};
+                var name = d.name || (holdings[code] ? holdings[code].name : code);
+                var isQDII = getAssetType(name) === 'QDII';
+
+                if (isQDII) {
+                    var nav = parseFloat(d.actualNav);
+                    var rate = d.actualRate != null ? parseFloat(d.actualRate) : null;
+                    if (!isNaN(nav) && nav > 0) {
+                        return { nav: nav, rate: rate, source: 'netValue', isQDII: true };
+                    }
+                }
+
+                var today = new Date().toISOString().slice(0, 10);
+
+                if (d.actualDate === today) {
+                    var nav = parseFloat(d.actualNav);
+                    var rate = d.actualRate != null ? parseFloat(d.actualRate) : null;
+                    if (!isNaN(nav) && nav > 0) {
+                        return { nav: nav, rate: rate, source: 'netValue' };
+                    }
+                }
+
+                if (isTradingDay()) {
+                    var nav = parseFloat(d.gsz);
+                    var rate = d.gszzl != null ? parseFloat(d.gszzl) : null;
+                    if (!isNaN(nav) && nav > 0) {
+                        return { nav: nav, rate: rate, source: 'estimate' };
+                    }
+                    return { nav: null, rate: null, source: 'none' };
+                }
+
+                var nav = parseFloat(d.actualNav) || parseFloat(d.gsz) || 0;
+                var rate = d.actualRate != null ? parseFloat(d.actualRate) :
+                    (d.gszzl != null ? parseFloat(d.gszzl) : null);
+                if (nav > 0) {
+                    return { nav: nav, rate: rate, source: 'netValue' };
+                }
+                return { nav: null, rate: null, source: 'none' };
+            }
+
             function getLatestTradeDate() {
                 var d = new Date();
                 var now = new Date();
-                if (now.getHours() < 15 || (now.getHours() === 15 && now.getMinutes() === 0))
-                    d.setDate(d.getDate() - 1);
+                if (now.getHours() < 15 || (now.getHours() === 15 && now.getMinutes() === 0)) d.setDate(d.getDate() - 1);
                 while (d.getDay() === 0 || d.getDay() === 6 || HOLIDAYS.has(d.toISOString().slice(0, 10))) {
                     d.setDate(d.getDate() - 1);
                 }
                 return d.toISOString().slice(0, 10);
             }
 
-            // 判断数据是否应该显示（右侧净值）
-            function shouldShowNav() {
-                // 非交易日：始终显示
-                if (!isTradingDay()) return true;
-                // 交易日 9:00 之前：显示
-                if (getMinutesSinceMidnight() < 540) return true;
-                // 交易日 9:00 之后：隐藏
-                return false;
+            function isUpdated(code) {
+                var d = fundDataCache[code];
+                if (!d || !d.actualDate) return false;
+                if (isTradingTime()) return false;
+                return d.actualDate >= getLatestTradeDate();
             }
 
-            // ----- 数据存储（与之前完全一致）-----
             var STORAGE_W = 'fund_watchlist_v2',
                 STORAGE_H = 'fund_holdings',
                 STORAGE_C = 'fund_data_cache',
                 STORAGE_A = 'account_profit_history',
                 STORAGE_T = 'custom_tags',
                 STORAGE_SORT = 'fundholder_sort_mode',
-                STORAGE_HSORT = 'fundholder_hold_sort_mode',
-                STORAGE_NAV_FETCHED = 'fund_nav_fetched'; // 记录已抓取净值的基金
+                STORAGE_HSORT = 'fundholder_hold_sort_mode';
 
             var watchlist = [],
                 holdings = {},
                 fundDataCache = {},
                 accountProfitHistory = [],
                 customTags = {};
-            var navFetched = {}; // { code: true } 表示该基金今晚净值已抓取
             var sortMode = 'default',
                 holdSortMode = 'market-desc',
                 isBulkEditing = false;
             var refreshTimer = null,
                 wakeUpTimer = null,
-                indexTimer = null,
-                navFetchTimer = null;
+                indexTimer = null;
             var trendCharts = {},
                 accountTrendChart = null,
                 summaryVisible = true;
@@ -1798,8 +2122,7 @@
                 swipeCurrentX = 0,
                 isSwiping = false,
                 saveCachePending = false;
-            var globalIndexCache = null,
-                aShareCache = null;
+            var globalIndexCache = null;
             var jsonpRequests = {};
 
             function loadAllData() {
@@ -1812,13 +2135,6 @@
                 try { sortMode = localStorage.getItem(STORAGE_SORT) || 'default'; } catch (e) { sortMode = 'default'; }
                 try { holdSortMode = localStorage.getItem(STORAGE_HSORT) || 'market-desc'; } catch (e) { holdSortMode =
                     'market-desc'; }
-                try { navFetched = JSON.parse(localStorage.getItem(STORAGE_NAV_FETCHED)) || {}; } catch (e) { navFetched = {}; }
-                // 检查是否需要重置 navFetched（新交易日）
-                var today = new Date().toISOString().slice(0, 10);
-                if (navFetched._date !== today) {
-                    navFetched = { _date: today };
-                    localStorage.setItem(STORAGE_NAV_FETCHED, JSON.stringify(navFetched));
-                }
             }
 
             function saveAll() {
@@ -1828,7 +2144,6 @@
                 localStorage.setItem(STORAGE_T, JSON.stringify(customTags));
                 localStorage.setItem(STORAGE_SORT, sortMode);
                 localStorage.setItem(STORAGE_HSORT, holdSortMode);
-                localStorage.setItem(STORAGE_NAV_FETCHED, JSON.stringify(navFetched));
             }
 
             function saveCacheThrottled() {
@@ -1845,18 +2160,51 @@
             }
             loadAllData();
 
-            // ----- 辅助函数 -----
-            function escapeHTML(s) {
-                var d = document.createElement('div');
-                d.textContent = s;
-                return d.innerHTML;
+            // ===== ✅ 菜单逻辑 + 编辑/完成切换 =====
+            var isWatchlistMenuOpen = false;
+            var isHoldingsMenuOpen = false;
+
+            function closeAllMenus() {
+                var wp = $('menuWatchlistPopup'),
+                    hp = $('menuHoldingsPopup');
+                if (wp && wp.classList.contains('active')) {
+                    wp.classList.remove('active');
+                    isWatchlistMenuOpen = false;
+                    var btnW = $('btnMoreWatchlist');
+                    if (btnW && !isBulkEditing) btnW.textContent = '编辑';
+                }
+                if (hp && hp.classList.contains('active')) {
+                    hp.classList.remove('active');
+                    isHoldingsMenuOpen = false;
+                    var btnH = $('btnMoreHoldings');
+                    if (btnH && !isBulkEditing) btnH.textContent = '编辑';
+                }
             }
 
-            function getDisplayName(code) {
-                var d = fundDataCache[code] || {};
-                if (d.name && d.name !== '未知') return d.name;
-                if (holdings[code] && holdings[code].name) return holdings[code].name;
-                return code;
+            function navigateTo(page) {
+                closeAllMenus();
+                document.querySelectorAll('.page').forEach(function(p) {
+                    p.classList.remove('active');
+                    p.style.opacity = '0';
+                });
+                var target = document.getElementById(page + 'Page');
+                if (target) { target.classList.add('active');
+                    target.style.opacity = '1'; }
+                window.scrollTo({ top: 0, behavior: 'instant' });
+                if (page === 'index') fetchIndexData();
+                if (page === 'holdings') renderHoldings();
+                if (page === 'overview') renderOverview();
+                if (page === 'watchlist') renderWatchlist();
+                updateHomeCounts();
+                updateTradeBadges();
+            }
+            window.navigateTo = navigateTo;
+
+            function updateHomeCounts() {
+                var wc = $('homeWatchlistCount'),
+                    hc = $('homeHoldingsCount');
+                if (wc) wc.textContent = watchlist.length + ' 只';
+                if (hc) hc.textContent = Object.keys(holdings).length + ' 只';
             }
 
             var INDUSTRY_KEYWORDS = [
@@ -1901,16 +2249,22 @@
                 return customTags[code] || getIndustryForCode(name) || '';
             }
 
+            function getDisplayName(code) {
+                var d = fundDataCache[code] || {};
+                if (d.name && d.name !== '未知') return d.name;
+                if (holdings[code] && holdings[code].name) return holdings[code].name;
+                return code;
+            }
+
             // ================================================================
-            //  ✅ 自选列表渲染 — 根据规则控制右侧净值显示
+            //  ✅ 自选列表渲染 — 估值 | 净值 并排等大
             // ================================================================
             function renderWatchlist() {
-                var fl = document.getElementById('fundList'),
-                    es = document.getElementById('emptyState');
+                var fl = $('fundList'),
+                    es = $('emptyState');
                 if (!watchlist.length) { fl.innerHTML = '';
                     es.style.display = 'block'; return; }
                 es.style.display = 'none';
-
                 var displayOrder = watchlist.slice();
                 if (sortMode === 'change-desc' || sortMode === 'change-asc') {
                     displayOrder.sort(function(a, b) {
@@ -1919,69 +2273,45 @@
                         return sortMode === 'change-desc' ? zb - za : za - zb;
                     });
                 }
-
                 var html = '';
-                var latestTradeDate = getLatestTradeDate();
-                var todayStr = new Date().toISOString().slice(0, 10);
-
-                // 判断是否应该显示净值
-                var showNav = shouldShowNav();
+                var today = new Date().toISOString().slice(0, 10);
+                var isTrading = isTradingTime();
 
                 displayOrder.forEach(function(code) {
                     var d = fundDataCache[code] || {};
                     var name = getDisplayName(code);
                     var tag = getTagForCode(code, name);
 
-                    // ---- 估值（左侧） ----
+                    // 获取估值和净值数据
                     var gszzl = d.gszzl !== undefined && d.gszzl !== null && !isNaN(parseFloat(d.gszzl)) ?
                         parseFloat(d.gszzl) : null;
-
-                    // 交易日 9:00~9:14 显示 "--"（旧数据已退场，新数据未到）
-                    var isTrading = isTradingDay();
-                    var mins = getMinutesSinceMidnight();
-                    var isGapTime = isTrading && mins >= 540 && mins < 555;
-
-                    var estimateStr = '--';
-                    var estimateCls = 'zero';
-                    if (isGapTime) {
-                        estimateStr = '--';
-                        estimateCls = 'zero';
-                    } else if (gszzl !== null) {
-                        estimateStr = (gszzl >= 0 ? '+' : '') + gszzl.toFixed(2) + '%';
-                        estimateCls = gszzl > 0 ? 'up' : (gszzl < 0 ? 'down' : 'zero');
-                    } else {
-                        estimateStr = '--';
-                        estimateCls = 'zero';
-                    }
-
-                    // ---- 净值（右侧） ----
                     var actualRate = d.actualRate !== undefined && d.actualRate !== null && !isNaN(parseFloat(d.actualRate)) ?
                         parseFloat(d.actualRate) : null;
                     var actualDate = d.actualDate || null;
-                    var actualNav = d.actualNav !== undefined && d.actualNav !== null && !isNaN(parseFloat(d.actualNav)) ?
-                        parseFloat(d.actualNav) : null;
+                    var latestTradeDate = getLatestTradeDate();
+                    var hasTodayNav = actualDate === latestTradeDate && actualRate !== null;
 
-                    // 判断净值是否可显示：
-                    // 1. showNav 为 true（非交易日 或 交易日9:00前）
-                    // 2. 净值日期匹配最近交易日
-                    // 3. 或者今日净值已被抓取（navFetched 标记）
-                    var isNavFetchedToday = navFetched[code] === true;
-                    var hasNavData = actualRate !== null && actualDate === latestTradeDate;
-                    var canShowNav = showNav && (hasNavData || isNavFetchedToday);
+                    //❎原显示逻辑 var netStr = hasTodayNav ? (actualRate >= 0 ? '+' : '') + actualRate.toFixed(2) + '%' : '--';
+// var netCls = hasTodayNav ? (actualRate > 0 ? 'up' : (actualRate < 0 ? 'down' : 'zero')) : 'zero';
 
-                    var netStr = canShowNav ?
-                        (actualRate !== null ? (actualRate >= 0 ? '+' : '') + actualRate.toFixed(2) + '%' : '--') :
-                        '--';
-                    var netCls = 'zero';
-                    if (canShowNav && actualRate !== null) {
-                        netCls = actualRate > 0 ? 'up' : (actualRate < 0 ? 'down' : 'zero');
-                    }
+                    // ✅ 估值始终显示（左侧），净值有则显示（右侧）
+                    var estimateStr = gszzl !== null ? (gszzl >= 0 ? '+' : '') + gszzl.toFixed(2) + '%' : '--';
+                    var estimateCls = gszzl === null ? 'zero' : (gszzl > 0 ? 'up' : (gszzl < 0 ? 'down' : 'zero'));
 
-                    // 在 9:00~9:14 时间段，右侧强制 "--"
-                    if (isGapTime) {
-                        netStr = '--';
-                        netCls = 'zero';
-                    }
+                    // 右侧净值：只在非交易时段显示，且必须匹配最近交易日（否则就算有缓存也不显示）
+        var netStr = '--';
+        var netCls = 'zero';
+        var minutes = new Date().getHours() * 60 + new Date().getMinutes();
+        var isTradingTimeNow = isTradingDay() && minutes >= 555 && minutes < 915;
+        if (!isTradingTimeNow) {
+            var latestTradeDate = getLatestTradeDate();
+            var actualDate = d.actualDate || null;
+            var actualRate = d.actualRate !== undefined && d.actualRate !== null && !isNaN(parseFloat(d.actualRate)) ? parseFloat(d.actualRate) : null;
+            if (actualDate === latestTradeDate && actualRate !== null) {
+                netStr = (actualRate >= 0 ? '+' : '') + actualRate.toFixed(2) + '%';
+                netCls = actualRate > 0 ? 'up' : (actualRate < 0 ? 'down' : 'zero');
+            }
+        }
 
                     var tagHtml = tag ?
                         '<span class="industry-tag" data-code="' + code +
@@ -1998,24 +2328,37 @@
                     html += '<div class="fund-code">' + code + '</div>';
                     html += '</div>';
                     html += '</div>';
+
+                    // ✅ 右侧：估值 | 净值 并排等大
                     html += '<div class="change-area">';
                     html += '<span class="change-primary ' + estimateCls + '">' + estimateStr + '</span>';
                     html += '<span class="change-separator">|</span>';
                     html += '<span class="change-secondary-value ' + netCls + '">' + netStr + '</span>';
                     html += '</div>';
+
                     html += '</div>';
                     html += '<div class="swipe-delete"><span>删除</span></div>';
                     html += '</div>';
                 });
 
                 fl.innerHTML = html;
+                updateBreathing();
                 bindSwipeEvents();
                 updateHomeCounts();
                 updateTradeBadges();
             }
 
+            function updateBreathing() {
+                var isTrading = isTradingTime();
+                document.querySelectorAll('.change-percent.up,.change-percent.down').forEach(function(el) {
+                    if (isTrading) el.classList.add('breathing');
+                    else el.classList.remove('breathing');
+                });
+                updateTradeBadges();
+            }
+
             function bindSwipeEvents() {
-                var fl = document.getElementById('fundList');
+                var fl = $('fundList');
                 fl.removeEventListener('touchstart', handleTouchStart);
                 fl.removeEventListener('touchmove', handleTouchMove);
                 fl.removeEventListener('touchend', handleTouchEnd);
@@ -2128,133 +2471,21 @@
                 ]);
             };
 
-            function updateHomeCounts() {
-                var wc = document.getElementById('homeWatchlistCount'),
-                    hc = document.getElementById('homeHoldingsCount');
-                if (wc) wc.textContent = watchlist.length + ' 只';
-                if (hc) hc.textContent = Object.keys(holdings).length + ' 只';
-            }
-
-            function updateTradeBadges() {
-                var active = isEstimateFetchWindow();
-                document.querySelectorAll('.trade-badge').forEach(function(badge) {
-                    if (active) badge.classList.add('active');
-                    else badge.classList.remove('active');
-                });
-            }
-
-            // ----- 数据获取 -----
-            function fetchSingle(code, retries) {
-                if (retries === undefined) retries = 2;
-                return new Promise(function(resolve, reject) {
-                    var reqId = 'r-' + code + '-' + (jsonpCounter++) + '-' + Date.now();
-                    if (jsonpRequests[reqId]) { jsonpRequests[reqId].cleanup();
-                        delete jsonpRequests[reqId]; }
-                    var attempt = function(rem) {
-                        var sid = 'jp-' + reqId;
-                        var s = document.getElementById(sid);
-                        if (s) s.remove();
-                        var s2 = document.createElement('script');
-                        s2.id = sid;
-                        s2.src = 'https://fundgz.1234567.com.cn/js/' + code + '.js?rt=' + Date.now();
-                        var tid = setTimeout(function() {
-                            cleanup();
-                            if (rem > 0) attempt(rem - 1);
-                            else reject(new Error('超时'));
-                        }, 8000);
-                        if (!window._jsonpCB) window._jsonpCB = {};
-                        window._jsonpCB[reqId] = function(data) { cleanup();
-                            resolve(data); };
-
-                        function cleanup() {
-                            clearTimeout(tid);
-                            if (s2.parentNode) s2.remove();
-                            delete window._jsonpCB[reqId];
-                            delete jsonpRequests[reqId];
-                        }
-                        s2.onerror = function() {
-                            cleanup();
-                            if (rem > 0) attempt(rem - 1);
-                            else reject(new Error('网络错误'));
-                        };
-                        jsonpRequests[reqId] = { cleanup: cleanup };
-                        document.head.appendChild(s2);
-                    };
-                    attempt(retries);
-                });
-            }
-            window.jsonpgz = function(d) {
-                if (d && d.fundcode && window._jsonpCB) {
-                    for (var k in window._jsonpCB) {
-                        if (k.indexOf(d.fundcode) !== -1) { window._jsonpCB[k](d); break; }
-                    }
-                }
-            };
-
-            function parseNavDate(r) {
-                if (!r) return null;
-                var m = r.match(/(\d{4})[-\/]?(\d{1,2})[-\/]?(\d{1,2})/);
-                if (m) {
-                    var y = parseInt(m[1]),
-                        mo = parseInt(m[2]),
-                        d = parseInt(m[3]);
-                    if (y >= 2000 && y <= 2100 && mo >= 1 && mo <= 12 && d >= 1 && d <= 31) {
-                        return y + '-' + String(mo).padStart(2, '0') + '-' + String(d).padStart(2, '0');
-                    }
-                }
-                return null;
-            }
-
-            // ================================================================
-            //  ✅ 核心：判断基金是否已更新（用于持仓圆点颜色）
-            // ================================================================
-            function isUpdated(code) {
-                var d = fundDataCache[code];
-                if (!d || !d.actualDate) return false;
-
-                // 计算当前北京时间（小时和分钟），避免时区问题
-                var now = new Date();
-                var beijingHours = (now.getUTCHours() + 8) % 24;
-                var beijingMinutes = now.getUTCMinutes();
-                var beijingMins = beijingHours * 60 + beijingMinutes;
-
-                // 如果是交易日且北京时间在 9:15 ~ 15:15 之间，视为盘中估值时段，不标记为已更新
-                if (isTradingDay() && beijingMins >= 555 && beijingMins < 915) {
-                    return false;
-                }
-
-                // 非盘中时段：检查 actualDate 是否等于最近交易日
-                return d.actualDate >= getLatestTradeDate();
-            }
-
-            // ================================================================
-            //  ✅ 持仓卡片数据获取（修复圆点颜色）
-            // ================================================================
             function getCardData(code) {
                 var h = holdings[code],
                     d = fundDataCache[code] || {};
                 var cost = parseFloat(h.cost) || 0,
                     shares = parseFloat(h.shares) || 0;
+                var updated = isUpdated(code);
                 var display = getDisplayData(code);
                 var currentNav = display.nav;
                 var dayRate = display.rate;
-                var updated = isUpdated(code); // 动态判断圆点颜色
 
                 if (currentNav === null || currentNav <= 0) {
-                    return {
-                        name: h.name || (d.name || code),
-                        code: code,
-                        marketValue: null,
-                        dayRate: null,
-                        dayProfit: null,
-                        totalP: null,
-                        totalYieldRate: null,
-                        cls: 'zero',
-                        dotClass: 'pending',
-                        cost: cost,
-                        shares: shares
-                    };
+                    return { name: h.name || (d.name || code), code: code, marketValue: null, dayRate: null, dayProfit: null,
+                        totalP: null, totalYieldRate: null, cls: 'zero', dotClass: updated ? 'updated' : 'pending' };
                 }
+
                 var mv = currentNav * shares;
                 var rate = (dayRate != null && !isNaN(dayRate)) ? (dayRate / 100) : 0;
                 var prev = rate !== 0 ? currentNav / (1 + rate) : currentNav;
@@ -2262,249 +2493,10 @@
                 var totalP = (currentNav - cost) * shares;
                 var totalYR = cost > 0 ? ((currentNav - cost) / cost * 100) : 0;
                 var cls = dayRate > 0 ? 'up' : (dayRate < 0 ? 'down' : 'zero');
-                return {
-                    name: h.name || (d.name || code),
-                    code: code,
-                    marketValue: mv,
-                    dayRate: dayRate,
-                    dayProfit: dayProfit,
+                var dotClass = updated ? 'updated' : 'pending';
+                return { name: h.name || (d.name || code), code: code, marketValue: mv, dayRate: dayRate, dayProfit: dayProfit,
                     totalP: totalP,
-                    totalYieldRate: totalYR,
-                    cls: cls,
-                    dotClass: updated ? 'updated' : 'pending',
-                    cost: cost,
-                    shares: shares
-                };
-            }
-
-            async function fetchAndUpdate(code) {
-                try {
-                    var old = fundDataCache[code] || {};
-                    var isTrading = isEstimateFetchWindow();
-                    var latestDate = getLatestTradeDate();
-                    var changed = false;
-
-                    var ttName = old.name;
-                    if (!ttName || ttName === '未知') {
-                        if (holdings[code] && holdings[code].name) ttName = holdings[code].name;
-                        else {
-                            try {
-                                var ttData = await fetchSingle(code);
-                                if (ttData && ttData.name) ttName = ttData.name;
-                            } catch (e) {}
-                        }
-                    }
-
-                    var needEstimate = isTrading || !old.jzrq || old.jzrq.trim() !== latestDate;
-                    var gszVal = old.gsz,
-                        gszzlVal = old.gszzl,
-                        gztimeVal = old.gztime,
-                        jzrqVal = old.jzrq;
-                    if (needEstimate) {
-                        try {
-                            var estData = await fetchSingle(code);
-                            if (estData) {
-                                gszVal = estData.gsz;
-                                gszzlVal = estData.gszzl;
-                                gztimeVal = estData.gztime || '';
-                                jzrqVal = estData.jzrq || old.jzrq || '';
-                                if (estData.name && (!ttName || ttName === '未知')) ttName = estData.name;
-                            }
-                        } catch (e) {}
-                    }
-
-                    // 净值抓取：仅在 19:30 后且该基金尚未抓取到今日净值时
-                    var needNav = isNavFetchWindow() && !navFetched[code];
-                    var tn = null,
-                        td = null,
-                        tr = null;
-                    if (needNav) {
-                        var ac = new AbortController();
-                        var to = setTimeout(function() { ac.abort(); }, 10000);
-                        try {
-                            var resp = await fetch('https://qt.gtimg.cn/q=jj' + code, { signal: ac.signal });
-                            clearTimeout(to);
-                            var text = await resp.text();
-                            var m = text.match(/"([^"]+)"/);
-                            if (m) {
-                                var f = m[1].split('~');
-                                tn = parseFloat(f[5]);
-                                tr = parseFloat(f[7]);
-                                td = parseNavDate(f[8] || '');
-                                if (tn && !isNaN(tn) && td && td === latestDate) {
-                                    navFetched[code] = true;
-                                    localStorage.setItem(STORAGE_NAV_FETCHED, JSON.stringify(navFetched));
-                                }
-                            }
-                        } catch (e) { clearTimeout(to); }
-                    }
-
-                    var nd = {
-                        fundcode: old.fundcode || code,
-                        name: ttName || code,
-                        gsz: gszVal,
-                        gszzl: gszzlVal,
-                        gztime: gztimeVal,
-                        jzrq: jzrqVal,
-                        actualNav: (tn && !isNaN(tn)) ? String(tn) : old.actualNav,
-                        actualRate: (tr != null && !isNaN(tr)) ? tr : old.actualRate,
-                        actualDate: td || old.actualDate
-                    };
-                    changed = old.gsz !== nd.gsz || old.gszzl !== nd.gszzl || old.actualNav !== nd.actualNav || old
-                        .actualRate !== nd.actualRate || old.actualDate !== nd.actualDate || old.name !== nd.name;
-                    fundDataCache[code] = nd;
-                    return changed;
-                } catch (e) {
-                    console.error('fetchAndUpdate error:', e);
-                    return false;
-                }
-            }
-
-            async function fetchAllFunds() {
-                var all = Array.from(new Set(watchlist.concat(Object.keys(holdings))));
-                if (!all.length) { renderWatchlist();
-                    renderHoldings(); return; }
-                var q = all.slice();
-                while (q.length) {
-                    var b = q.splice(0, 3);
-                    await Promise.allSettled(b.map(function(c) { return fetchAndUpdate(c); }));
-                }
-                saveCacheThrottled();
-                renderWatchlist();
-                renderHoldings();
-                updateHomeCounts();
-                updateTradeBadges();
-            }
-
-            // ----- 净值专项抓取（19:30 后，逐个抓取，抓到即固定）-----
-            var isNavFetching = false;
-
-            async function fetchAllNavs() {
-                if (isNavFetching) return;
-                var all = Array.from(new Set(watchlist.concat(Object.keys(holdings))));
-                var pending = all.filter(function(c) { return !navFetched[c]; });
-                if (!pending.length) {
-                    // 全部抓完，停止定时器
-                    if (navFetchTimer) { clearInterval(navFetchTimer);
-                        navFetchTimer = null; }
-                    return;
-                }
-                isNavFetching = true;
-                try {
-                    // 逐个抓取，每次最多3个并发
-                    var q = pending.slice();
-                    while (q.length) {
-                        var batch = q.splice(0, 3);
-                        await Promise.allSettled(batch.map(function(c) { return fetchAndUpdate(c); }));
-                        // 抓到一个就刷新界面
-                        renderWatchlist();
-                        renderHoldings();
-                        // 检查是否全部抓完
-                        var remaining = q.filter(function(c) { return !navFetched[c]; });
-                        if (!remaining.length) {
-                            if (navFetchTimer) { clearInterval(navFetchTimer);
-                                navFetchTimer = null; }
-                            break;
-                        }
-                        // 等待1秒再抓下一批
-                        await new Promise(function(r) { setTimeout(r, 1000); });
-                    }
-                } catch (e) {
-                    console.error('fetchAllNavs error:', e);
-                }
-                isNavFetching = false;
-                renderWatchlist();
-                renderHoldings();
-            }
-
-            function scheduleNavFetch() {
-                if (navFetchTimer) { clearInterval(navFetchTimer);
-                    navFetchTimer = null; }
-                // 检查今天是否已抓完
-                var all = Array.from(new Set(watchlist.concat(Object.keys(holdings))));
-                var pending = all.filter(function(c) { return !navFetched[c]; });
-                if (!pending.length) return;
-
-                // 每30秒尝试抓取一次
-                navFetchTimer = setInterval(function() {
-                    // 检查是否还在净值抓取窗口（19:30 后）
-                    if (!isNavFetchWindow()) {
-                        return;
-                    }
-                    fetchAllNavs();
-                }, 30000);
-
-                // 立即执行一次
-                setTimeout(function() { fetchAllNavs(); }, 1000);
-            }
-
-            function getRefreshTarget() {
-                var now = new Date(),
-                    totalMin = now.getHours() * 60 + now.getMinutes();
-                if (!isTradingDay()) return { type: 'idle', interval: 120 * 60 * 1000 };
-                if (totalMin >= 555 && totalMin < 915) {
-                    return { type: 'trading', interval: 5 * 60 * 1000 };
-                }
-                if (totalMin >= 915 && totalMin < 930) return { type: 'post-close-buffer', interval: 30 * 60 * 1000 };
-                if (totalMin >= 930 && totalMin < 1170) return { type: 'post-market', interval: 30 * 60 * 1000 };
-                // 19:30 后进入净值抓取模式
-                if (totalMin >= 1170) return { type: 'nav-fetch', interval: 60 * 60 * 1000 };
-                return { type: 'night', interval: 120 * 60 * 1000 };
-            }
-
-            function scheduleRefresh() {
-                clearTimeout(refreshTimer);
-                clearTimeout(wakeUpTimer);
-                var target = getRefreshTarget();
-                refreshTimer = setTimeout(function() {
-                    refreshAllData();
-                    // 同时触发净值抓取
-                    if (isNavFetchWindow()) {
-                        scheduleNavFetch();
-                    }
-                }, target.interval);
-            }
-
-            async function refreshAllData() {
-                await fetchAllFunds();
-                if (isNavFetchWindow()) {
-                    scheduleNavFetch();
-                }
-                scheduleRefresh();
-            }
-
-            // ================================================================
-            //  ✅ 持仓渲染（使用修复后的 getCardData）
-            // ================================================================
-            function getDisplayData(code) {
-                var d = fundDataCache[code] || {};
-                var latestDate = getLatestTradeDate();
-                var todayStr = new Date().toISOString().slice(0, 10);
-                var isTrading = isEstimateFetchWindow();
-
-                // 如果在估值抓取窗口，优先显示估值
-                if (isTrading) {
-                    var gsz = parseFloat(d.gsz);
-                    var gszzl = d.gszzl != null ? parseFloat(d.gszzl) : null;
-                    if (!isNaN(gsz) && gsz > 0) {
-                        return { nav: gsz, rate: gszzl, source: 'estimate' };
-                    }
-                    return { nav: null, rate: null, source: 'none' };
-                }
-
-                // 非交易时段，优先显示净值
-                var actualNav = parseFloat(d.actualNav);
-                var actualRate = d.actualRate != null ? parseFloat(d.actualRate) : null;
-                if (!isNaN(actualNav) && actualNav > 0 && d.actualDate === latestDate) {
-                    return { nav: actualNav, rate: actualRate, source: 'netValue' };
-                }
-                // 如果有估值但没净值，显示估值
-                var gsz2 = parseFloat(d.gsz);
-                var gszzl2 = d.gszzl != null ? parseFloat(d.gszzl) : null;
-                if (!isNaN(gsz2) && gsz2 > 0) {
-                    return { nav: gsz2, rate: gszzl2, source: 'estimate' };
-                }
-                return { nav: null, rate: null, source: 'none' };
+                    totalYieldRate: totalYR, cls: cls, dotClass: dotClass, cost: cost, shares: shares };
             }
 
             function buildCardHTML(data) {
@@ -2512,14 +2504,12 @@
                 var mvStr = data.marketValue !== null ? data.marketValue.toFixed(2) : '--';
                 var dayRateStr = data.dayRate !== null ? (data.dayRate >= 0 ? '+' : '') + data.dayRate.toFixed(2) + '%' :
                     '--';
-                var dayProfitStr = data.dayProfit !== null ? ((data.dayProfit >= 0 ? '+' : '') + data.dayProfit.toFixed(2)) :
-                    '--';
-                var totalPStr = data.totalP !== null ? ((data.totalP >= 0 ? '+' : '') + data.totalP.toFixed(2)) : '--';
+                var dayProfitStr = data.dayProfit !== null ? formatMoney(data.dayProfit) : '--';
+                var totalPStr = data.totalP !== null ? formatMoney(data.totalP) : '--';
                 var totalYRStr = data.totalYieldRate !== null ? (data.totalYieldRate >= 0 ? '+' : '') + data.totalYieldRate
                     .toFixed(2) + '%' : '--';
-                var dotClass = data.dotClass || 'pending';
                 return '<div class="holding-card" data-code="' + data.code + '"><div class="holding-header"><div class="holding-header-left"><span class="update-dot ' +
-                    dotClass + '"></span><span class="holding-name">' + escapeHTML(data.name) +
+                    data.dotClass + '"></span><span class="holding-name">' + escapeHTML(data.name) +
                     '</span><span class="holding-code">' + data.code +
                     '</span></div><span class="holding-amount">' + mvStr +
                     '</span></div><div class="metrics-row"><div class="metric-card"><span class="metric-label">今日涨幅</span><span class="metric-value ' +
@@ -2530,7 +2520,8 @@
                     (data.totalP !== null ? pc(data.totalP) : 'neutral') + '">' + totalPStr +
                     '</span></div><div class="metric-card"><span class="metric-label">持有收益率</span><span class="metric-value ' +
                     (data.totalYieldRate !== null ? pc(data.totalYieldRate) : 'neutral') + '">' + totalYRStr +
-                    '</span></div></div></div>';
+                    '</span></div></div><div class="trend-chart-wrapper" id="trend-' + data.code +
+                    '"><canvas id="trendCanvas-' + data.code + '"></canvas></div></div>';
             }
 
             function getSortedHoldingsCodes() {
@@ -2547,7 +2538,7 @@
 
             function renderHoldings() {
                 var codes = getSortedHoldingsCodes(),
-                    hl = document.getElementById('holdingsList');
+                    hl = $('holdingsList');
                 if (!codes.length) {
                     hl.innerHTML =
                         '<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><div>暂无持仓，点击右上角 + 添加</div></div>';
@@ -2657,7 +2648,6 @@
                 });
             }
 
-            // ===== 概览 =====
             function computeSummary() {
                 var codes = Object.keys(holdings);
                 if (!codes.length) {
@@ -2700,24 +2690,21 @@
 
             function updateSummary(s) {
                 if (!summaryVisible) {
-                    document.getElementById('totalAsset').textContent = '***';
-                    document.getElementById('todayProfit').textContent = '***';
-                    document.getElementById('totalProfit').textContent = '***';
-                    var tr = document.getElementById('totalYieldRate');
+                    $('totalAsset').textContent = '***';
+                    $('todayProfit').textContent = '***';
+                    $('totalProfit').textContent = '***';
+                    var tr = $('totalYieldRate');
                     if (tr) tr.textContent = '***';
                     return;
                 }
-                document.getElementById('totalAsset').textContent = s.totalAsset !== null ? s.totalAsset.toFixed(2) :
-                '--';
-                document.getElementById('todayProfit').textContent = s.todayProfit !== null ? ((s.todayProfit >= 0 ? '+' :
-                    '') + s.todayProfit.toFixed(2)) : '--';
-                document.getElementById('totalProfit').textContent = s.totalProfit !== null ? ((s.totalProfit >= 0 ? '+' :
-                    '') + s.totalProfit.toFixed(2)) : '--';
-                document.getElementById('todayProfit').className = 's-value ' + (s.todayProfit > 0 ? 'profit-positive' :
-                    (s.todayProfit < 0 ? 'profit-negative' : 'neutral'));
-                document.getElementById('totalProfit').className = 's-value ' + (s.totalProfit > 0 ? 'profit-positive' :
-                    (s.totalProfit < 0 ? 'profit-negative' : 'neutral'));
-                var tr = document.getElementById('totalYieldRate');
+                $('totalAsset').textContent = s.totalAsset !== null ? s.totalAsset.toFixed(2) : '--';
+                $('todayProfit').textContent = s.todayProfit !== null ? formatMoney(s.todayProfit) : '--';
+                $('totalProfit').textContent = s.totalProfit !== null ? formatMoney(s.totalProfit) : '--';
+                $('todayProfit').className = 's-value ' + (s.todayProfit > 0 ? 'profit-positive' : (s.todayProfit < 0 ?
+                    'profit-negative' : 'neutral'));
+                $('totalProfit').className = 's-value ' + (s.totalProfit > 0 ? 'profit-positive' : (s.totalProfit < 0 ?
+                    'profit-negative' : 'neutral'));
+                var tr = $('totalYieldRate');
                 if (tr) {
                     tr.textContent = s.totalYieldRate !== null ? (s.totalYieldRate >= 0 ? '+' : '') + s.totalYieldRate
                         .toFixed(2) + '%' : '--';
@@ -2731,22 +2718,28 @@
                 return s.todayProfit !== null ? s.todayProfit : 0;
             }
 
-            function renderOverview() {
-                try {
-                    var s = computeSummary();
-                    updateSummary(s);
-                    renderAccountTrendChart();
-                    renderSettingsWarnings();
-                    updateTradeBadges();
-                } catch (e) {
-                    console.error('renderOverview 出错:', e);
+            function appendAccountHistory() {
+                var today = new Date().toISOString().slice(0, 10),
+                    latestTradeDate = getLatestTradeDate(),
+                    profit = calcTodayProfit();
+                var exist = accountProfitHistory.some(function(item) { return item.date === today; });
+                if (!exist) {
+                    accountProfitHistory.push({ date: latestTradeDate, profit: profit, type: 'actual' });
                 }
+                var seen = new Set();
+                accountProfitHistory = accountProfitHistory.filter(function(item) {
+                    if (seen.has(item.date)) return false;
+                    seen.add(item.date);
+                    return true;
+                });
+                if (accountProfitHistory.length > 30) accountProfitHistory.shift();
+                localStorage.setItem(STORAGE_A, JSON.stringify(accountProfitHistory));
             }
 
             function renderAccountTrendChart() {
                 try {
-                    var container = document.getElementById('accountTrendContainer'),
-                        canvas = document.getElementById('accountTrendCanvas');
+                    var container = $('accountTrendContainer'),
+                        canvas = $('accountTrendCanvas');
                     if (!container || !canvas) return;
                     var filtered = accountProfitHistory.filter(function(item) { return item.profit !== 0; });
                     if (filtered.length === 0) { container.style.display = 'none'; return; }
@@ -2782,97 +2775,71 @@
                 }
             }
 
-            function renderSettingsWarnings() {
-                var container = document.getElementById('settingsWarningsContainer');
-                if (!container) return;
-                var codes = Object.keys(holdings);
-                if (!codes.length) {
-                    container.innerHTML =
-                        '<div style="text-align:left;font-size:0.7rem;color:var(--text-tertiary);">暂无持仓数据</div>';
-                    return;
-                }
-                var indMap = {},
-                    astMap = {};
-                var total = 0;
-                codes.forEach(function(code) {
-                    var h = holdings[code],
-                        d = fundDataCache[code] || {};
-                    var shares = parseFloat(h.shares) || 0;
-                    var nav = parseFloat(d.actualNav) || parseFloat(d.gsz) || 0;
-                    var mv = nav * shares;
-                    if (mv <= 0) return;
-                    var name = h.name || d.name || code;
-                    var ind = getTagForCode(code, name) || '其他';
-                    var ast = getAssetType(name);
-                    indMap[ind] = (indMap[ind] || 0) + mv;
-                    astMap[ast] = (astMap[ast] || 0) + mv;
-                    total += mv;
-                });
-                if (total <= 0) {
-                    container.innerHTML =
-                        '<div style="text-align:left;font-size:0.7rem;color:var(--text-tertiary);">暂无有效持仓</div>';
-                    return;
-                }
-                var indList = Object.keys(indMap).map(function(k) {
-                    return { name: k, value: indMap[k], pct: indMap[k] / total * 100 };
-                }).sort(function(a, b) { return b.value - a.value; });
-                var warnings = [];
-                indList.forEach(function(x) {
-                    if (x.pct > 40) warnings.push(x.name + ' 行业占比 ' + x.pct.toFixed(1) + '%，过于集中');
-                });
-                var eqPct = ((astMap['股票型'] || 0) + (astMap['混合型'] || 0)) / total * 100;
-                if (eqPct > 80) warnings.push('权益类资产 ' + eqPct.toFixed(1) + '%，风险偏好较高');
-                if (!warnings.length && indList.every(function(i) { return i.name === '其他'; })) {
-                    container.innerHTML =
-                        '<div style="text-align:left;font-size:0.7rem;color:var(--text-tertiary);">💡 为基金设置行业标签可查看详细分析</div>';
-                    return;
-                }
-                if (!warnings.length) {
-                    container.innerHTML =
-                        '<div style="text-align:left;font-size:0.7rem;color:var(--text-tertiary);">✅ 暂未发现集中度风险</div>';
-                    return;
-                }
-                var maxPct = Math.max.apply(null, indList.map(function(i) { return i.pct; }));
-                var html = '<div class="progress-list">';
-                indList.slice(0, 6).forEach(function(ind) {
-                    var isWarn = ind.pct > 40;
-                    var wp = maxPct > 0 ? (ind.pct / maxPct * 100) : 0;
-                    html += '<div class="progress-row"><span class="progress-label">' + ind.name +
-                        '</span><div class="progress-track"><div class="progress-fill ' + (isWarn ? 'warn' :
-                            'safe') + '" style="width:' + wp +
-                        '%;"></div></div><span class="progress-pct">' + ind.pct.toFixed(1) +
-                        '%</span></div>';
-                });
-                html += '</div><div class="warnings-area">';
-                warnings.forEach(function(w) {
-                    html += '<div class="warning-card"><span class="warn-icon">⚠️</span><span>' + w +
-                        '</span></div>';
-                });
-                html += '</div>';
-                container.innerHTML = html;
-            }
+            function renderOverview() {
+    try {
+        var s = computeSummary();
 
-            function getAssetType(name) {
-                var ASSET_TYPE_MAP = {
-                    '股票型': ['股票', '权益', '指数', 'LOF', 'ETF'],
-                    '债券型': ['债券', '债', '纯债', '中短债'],
-                    '混合型': ['混合', '灵活', '平衡'],
-                    'QDII': ['QDII', '海外', '纳斯达克', '标普', '全球', '恒生']
-                };
-                for (var t in ASSET_TYPE_MAP) {
-                    var ks = ASSET_TYPE_MAP[t];
-                    for (var i = 0; i < ks.length; i++) {
-                        if (name.indexOf(ks[i]) !== -1) return t;
+        // 修正今日收益：非交易时段显示最近一个完整交易日的真实收益
+        var isTradingNow = isTradingTime(); // 盘中 9:15-15:15
+        if (!isTradingNow) {
+            var latestDate = getLatestTradeDate();
+            var record = accountProfitHistory.find(function(item) { return item.date === latestDate; });
+            if (record && record.profit !== undefined) {
+                s.todayProfit = record.profit;
+            }
+        }
+
+        updateSummary(s);
+        appendAccountHistory();
+        renderAccountTrendChart();
+        renderSettingsWarnings();
+        updateTradeBadges();
+    } catch (e) {
+        console.error('renderOverview 出错:', e);
+    }
+}
+
+            window.editTodayProfit = function() {
+                if (Object.keys(holdings).length === 0) {
+                    showModalOld('暂无持仓', '请先添加持仓基金', '', [{ text: '知道了', cls: 'primary' }]);
+                    return;
+                }
+                var currentProfit = calcTodayProfit();
+                window._saveProfit = function(date, profitVal) {
+                    try {
+                        var idx = accountProfitHistory.findIndex(function(item) { return item.date === date; });
+                        if (idx >= 0) {
+                            accountProfitHistory[idx].profit = profitVal;
+                            accountProfitHistory[idx].type = 'manual';
+                        } else {
+                            accountProfitHistory.push({ date: date, profit: profitVal, type: 'manual' });
+                        }
+                        var seenDates = new Set();
+                        accountProfitHistory = accountProfitHistory.filter(function(item) {
+                            if (seenDates.has(item.date)) return false;
+                            seenDates.add(item.date);
+                            return true;
+                        });
+                        accountProfitHistory.sort(function(a, b) { return a.date.localeCompare(b.date); });
+                        if (accountProfitHistory.length > 60) accountProfitHistory = accountProfitHistory.slice(-60);
+                        localStorage.setItem(STORAGE_A, JSON.stringify(accountProfitHistory));
+                        renderOverview();
+                        showModalOld('已修正', date + ' 收益已更新为 ' + formatMoney(profitVal), '', [{ text: '知道了',
+                            cls: 'primary' }]);
+                    } catch (e) {
+                        console.error('保存收益历史时出错:', e);
+                        alert('保存失败，请重试');
                     }
-                }
-                return '其他';
-            }
+                };
+                window.openProfitModal(currentProfit);
+            };
 
-            // ===== 指数数据 =====
+            var aShareCache = null;
+
             async function fetchIndexData(forceRefresh) {
                 if (forceRefresh === undefined) forceRefresh = false;
-                var aShareGrid = document.getElementById('aShareGrid'),
-                    globalGrid = document.getElementById('globalGrid');
+                var aShareGrid = $('aShareGrid'),
+                    globalGrid = $('globalGrid');
                 var A_INDICES = [
                     { code: 's_sh000001', name: '上证指数' },
                     { code: 's_sz399001', name: '深证成指' },
@@ -3048,13 +3015,13 @@
                 clearTimeout(indexTimer);
                 var now = new Date(),
                     totalMin = now.getHours() * 60 + now.getMinutes();
-                if (isTradingDay() && totalMin >= 555 && totalMin < 915) {
+                if (isTradingDay() && totalMin >= 570 && totalMin < 900) {
                     indexTimer = setTimeout(function() {
                         if (document.getElementById('indexPage').classList.contains('active')) fetchIndexData(
                         true);
                         scheduleIndexRefresh();
                     }, 30 * 60 * 1000);
-                } else if (totalMin >= 915 && totalMin < 930) {
+                } else if (totalMin >= 900 && totalMin < 930) {
                     indexTimer = setTimeout(function() { scheduleIndexRefresh(); }, 30 * 60 * 1000);
                 } else if (totalMin === 930) {
                     indexTimer = setTimeout(function() { fetchIndexData(true);
@@ -3064,867 +3031,183 @@
                 }
             }
 
-            // ===== 导航 =====
-            function navigateTo(page) {
-                closeAllMenus();
-                document.querySelectorAll('.page').forEach(function(p) {
-                    p.classList.remove('active');
-                    p.style.opacity = '0';
+            function fetchSingle(code, retries) {
+                if (retries === undefined) retries = 2;
+                return new Promise(function(resolve, reject) {
+                    var reqId = 'r-' + code + '-' + (jsonpCounter++) + '-' + Date.now();
+                    if (jsonpRequests[reqId]) { jsonpRequests[reqId].cleanup();
+                        delete jsonpRequests[reqId]; }
+                    var attempt = function(rem) {
+                        var sid = 'jp-' + reqId;
+                        var s = document.getElementById(sid);
+                        if (s) s.remove();
+                        var s2 = document.createElement('script');
+                        s2.id = sid;
+                        s2.src = 'https://fundgz.1234567.com.cn/js/' + code + '.js?rt=' + Date.now();
+                        var tid = setTimeout(function() {
+                            cleanup();
+                            if (rem > 0) attempt(rem - 1);
+                            else reject(new Error('超时'));
+                        }, 8000);
+                        if (!window._jsonpCB) window._jsonpCB = {};
+                        window._jsonpCB[reqId] = function(data) { cleanup();
+                            resolve(data); };
+
+                        function cleanup() {
+                            clearTimeout(tid);
+                            if (s2.parentNode) s2.remove();
+                            delete window._jsonpCB[reqId];
+                            delete jsonpRequests[reqId];
+                        }
+                        s2.onerror = function() {
+                            cleanup();
+                            if (rem > 0) attempt(rem - 1);
+                            else reject(new Error('网络错误'));
+                        };
+                        jsonpRequests[reqId] = { cleanup: cleanup };
+                        document.head.appendChild(s2);
+                    };
+                    attempt(retries);
                 });
-                var target = document.getElementById(page + 'Page');
-                if (target) { target.classList.add('active');
-                    target.style.opacity = '1'; }
-                window.scrollTo({ top: 0, behavior: 'instant' });
-                if (page === 'index') fetchIndexData();
-                if (page === 'holdings') renderHoldings();
-                if (page === 'overview') renderOverview();
-                if (page === 'watchlist') renderWatchlist();
+            }
+            window.jsonpgz = function(d) {
+                if (d && d.fundcode && window._jsonpCB) {
+                    for (var k in window._jsonpCB) {
+                        if (k.indexOf(d.fundcode) !== -1) { window._jsonpCB[k](d); break; }
+                    }
+                }
+            };
+
+            function parseNavDate(r) {
+                if (!r) return null;
+                var m = r.match(/(\d{4})[-\/]?(\d{1,2})[-\/]?(\d{1,2})/);
+                if (m) {
+                    var y = parseInt(m[1]),
+                        mo = parseInt(m[2]),
+                        d = parseInt(m[3]);
+                    if (y >= 2000 && y <= 2100 && mo >= 1 && mo <= 12 && d >= 1 && d <= 31) {
+                        return y + '-' + String(mo).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+                    }
+                }
+                return null;
+            }
+
+            async function fetchAndUpdate(code) {
+                try {
+                    var old = fundDataCache[code] || {};
+                    var isTrading = isTradingTime();
+                    var latestDate = getLatestTradeDate();
+                    var changed = false;
+
+                    var ttName = old.name;
+                    if (!ttName || ttName === '未知') {
+                        if (holdings[code] && holdings[code].name) ttName = holdings[code].name;
+                        else {
+                            try {
+                                var ttData = await fetchSingle(code);
+                                if (ttData && ttData.name) ttName = ttData.name;
+                            } catch (e) {}
+                        }
+                    }
+
+                    var needEstimate = isTrading || !old.jzrq || old.jzrq.trim() !== latestDate;
+                    var gszVal = old.gsz,
+                        gszzlVal = old.gszzl,
+                        gztimeVal = old.gztime,
+                        jzrqVal = old.jzrq;
+                    if (needEstimate) {
+                        try {
+                            var estData = await fetchSingle(code);
+                            if (estData) {
+                                gszVal = estData.gsz;
+                                gszzlVal = estData.gszzl;
+                                gztimeVal = estData.gztime || '';
+                                jzrqVal = estData.jzrq || old.jzrq || '';
+                                if (estData.name && (!ttName || ttName === '未知')) ttName = estData.name;
+                            }
+                        } catch (e) {}
+                    }
+
+                    var needNav = !isTrading && !isUpdated(code);
+                    var tn = null,
+                        td = null,
+                        tr = null;
+                    if (needNav) {
+                        var ac = new AbortController();
+                        var to = setTimeout(function() { ac.abort(); }, 10000);
+                        try {
+                            var resp = await fetch('https://qt.gtimg.cn/q=jj' + code, { signal: ac.signal });
+                            clearTimeout(to);
+                            var text = await resp.text();
+                            var m = text.match(/"([^"]+)"/);
+                            if (m) {
+                                var f = m[1].split('~');
+                                tn = parseFloat(f[5]);
+                                tr = parseFloat(f[7]);
+                                td = parseNavDate(f[8] || '');
+                            }
+                        } catch (e) { clearTimeout(to); }
+                    }
+
+                    var nd = {
+                        fundcode: old.fundcode || code,
+                        name: ttName || code,
+                        gsz: gszVal,
+                        gszzl: gszzlVal,
+                        gztime: gztimeVal,
+                        jzrq: jzrqVal,
+                        actualNav: (tn && !isNaN(tn)) ? String(tn) : old.actualNav,
+                        actualRate: (tr != null && !isNaN(tr)) ? tr : old.actualRate,
+                        actualDate: td || old.actualDate
+                    };
+                    changed = old.gsz !== nd.gsz || old.gszzl !== nd.gszzl || old.actualNav !== nd.actualNav || old
+                        .actualRate !== nd.actualRate || old.actualDate !== nd.actualDate || old.name !== nd.name;
+                    fundDataCache[code] = nd;
+                    return changed;
+                } catch (e) {
+                    console.error('fetchAndUpdate error:', e);
+                    return false;
+                }
+            }
+
+            async function fetchAllFunds() {
+                var all = Array.from(new Set(watchlist.concat(Object.keys(holdings))));
+                if (!all.length) { renderWatchlist();
+                    renderHoldings(); return; }
+                var q = all.slice();
+                while (q.length) {
+                    var b = q.splice(0, 3);
+                    await Promise.allSettled(b.map(function(c) { return fetchAndUpdate(c); }));
+                }
+                saveCacheThrottled();
+                renderWatchlist();
+                renderHoldings();
                 updateHomeCounts();
                 updateTradeBadges();
             }
-            window.navigateTo = navigateTo;
 
-            // ===== 菜单 =====
-            function closeAllMenus() {
-                var wp = document.getElementById('menuWatchlistPopup'),
-                    hp = document.getElementById('menuHoldingsPopup');
-                if (wp && wp.classList.contains('active')) {
-                    wp.classList.remove('active');
-                    var btnW = document.getElementById('btnMoreWatchlist');
-                    if (btnW && !isBulkEditing) btnW.textContent = '编辑';
-                }
-                if (hp && hp.classList.contains('active')) {
-                    hp.classList.remove('active');
-                    var btnH = document.getElementById('btnMoreHoldings');
-                    if (btnH && !isBulkEditing) btnH.textContent = '编辑';
-                }
+            function getRefreshTarget() {
+                var now = new Date(),
+                    totalMin = now.getHours() * 60 + now.getMinutes();
+                if (!isTradingDay()) return { type: 'idle', interval: 120 * 60 * 1000 };
+                if (totalMin < 570) return { type: 'pre-market', interval: 120 * 60 * 1000 };
+                if (totalMin >= 570 && totalMin < 900) return { type: 'trading', interval: 5 * 60 * 1000 };
+                if (totalMin >= 900 && totalMin < 930) return { type: 'post-close-buffer', interval: 30 * 60 * 1000 };
+                if (totalMin >= 930 && totalMin < 1320) return { type: 'post-market', interval: 30 * 60 * 1000 };
+                return { type: 'night', interval: 120 * 60 * 1000 };
             }
 
-            function showMenuPopup(menuId, items, anchorEl) {
-                var popup = document.getElementById(menuId);
-                if (popup.classList.contains('active')) {
-                    popup.classList.remove('active');
-                    if (popup._closeHandler) { document.removeEventListener('click', popup._closeHandler);
-                        popup._closeHandler = null; }
-                    return;
-                }
-                if (popup._closeHandler) { document.removeEventListener('click', popup._closeHandler);
-                    popup._closeHandler = null; }
-                popup.innerHTML = items.map(function(item, i) {
-                    return '<div class="menu-item" data-idx="' + i +
-                        '" tabindex="0" role="menuitem"><span class="menu-icon">' + (item.icon || '') +
-                        '</span>' + item.text + '</div>';
-                }).join('');
-                var rect = anchorEl.getBoundingClientRect();
-                popup.style.top = (rect.bottom + 8) + 'px';
-                popup.style.right = (window.innerWidth - rect.right) + 'px';
-                popup.classList.add('active');
-                popup.onclick = function(e) {
-                    var idx = e.target.closest('.menu-item') ? e.target.closest('.menu-item').dataset.idx :
-                        undefined;
-                    if (idx !== undefined) {
-                        popup.classList.remove('active');
-                        var btn = anchorEl;
-                        if (btn && btn.id === 'btnMoreWatchlist') {
-                            if (!isBulkEditing) btn.textContent = '编辑';
-                        } else if (btn && btn.id === 'btnMoreHoldings') {
-                            if (!isBulkEditing) btn.textContent = '编辑';
-                        }
-                        items[parseInt(idx)].action();
-                    }
-                };
-                var closeHandler = function(e) {
-                    if (!popup.contains(e.target) && e.target !== anchorEl && !anchorEl.contains(e.target)) {
-                        popup.classList.remove('active');
-                        var btn = anchorEl;
-                        if (btn && btn.id === 'btnMoreWatchlist') {
-                            if (!isBulkEditing) btn.textContent = '编辑';
-                        } else if (btn && btn.id === 'btnMoreHoldings') {
-                            if (!isBulkEditing) btn.textContent = '编辑';
-                        }
-                        document.removeEventListener('click', closeHandler);
-                        popup._closeHandler = null;
-                    }
-                };
-                popup._closeHandler = closeHandler;
-                setTimeout(function() { document.addEventListener('click', closeHandler); }, 10);
+            function scheduleRefresh() {
+                clearTimeout(refreshTimer);
+                clearTimeout(wakeUpTimer);
+                var target = getRefreshTarget();
+                refreshTimer = setTimeout(function() { refreshAllData(); }, target.interval);
             }
 
-            var iconAdd =
-                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>';
-            var iconSync =
-                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>';
-            var iconSort =
-                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><polyline points="8 12 4 6 8 0"/><line x1="4" y1="18" x2="20" y2="18"/><polyline points="16 12 20 18 16 24"/></svg>';
-            var iconEdit =
-                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
-
-            window.showWatchlistMenu = function(btn) {
-                var popup = document.getElementById('menuWatchlistPopup');
-                if (popup.classList.contains('active')) {
-                    popup.classList.remove('active');
-                    if (!isBulkEditing) btn.textContent = '编辑';
-                    return;
-                }
-                var sortText = { 'change-desc': '跌幅降序', 'change-asc': '涨幅升序', 'default': '默认' } [sortMode];
-                var items = [{
-                    text: '添加自选',
-                    icon: iconAdd,
-                    action: function() {
-                        showModalOld('添加自选基金', '', '<input type="text" id="modalAddCode" class="modal-input" placeholder="000001" maxlength="6" inputmode="numeric" pattern="[0-9]*">',
-                            [
-                                { text: '取消', cls: 'secondary' },
-                                { text: '添加', cls: 'primary', action: function() {
-                                        var code = document.getElementById('modalAddCode').value
-                                        .trim();
-                                        if (!/^\d{6}$/.test(code)) {
-                                            showModalOld('提示', '请输入6位代码', '', [{ text: '知道了',
-                                                    cls: 'primary' }]);
-                                            return;
-                                        }
-                                        if (watchlist.indexOf(code) !== -1) {
-                                            showModalOld('提示', '该基金已在自选中', '', [{ text: '知道了',
-                                                    cls: 'primary' }]);
-                                            return;
-                                        }
-                                        fetchSingle(code).then(function(data) {
-                                            if (data && data.name) {
-                                                watchlist.push(code);
-                                                localStorage.setItem(STORAGE_W, JSON.stringify(
-                                                    watchlist));
-                                                fundDataCache[code] = Object.assign({},
-                                                    fundDataCache[code], { name: data
-                                                        .name });
-                                                saveCache();
-                                                renderWatchlist();
-                                                showModalOld('已添加', '「' + data.name +
-                                                    '」已加入自选', '', [{ text: '知道了',
-                                                        cls: 'primary' }]);
-                                            } else {
-                                                showModalOld('添加失败', '无效的基金代码', '',
-                                                [{ text: '知道了', cls: 'primary' }]);
-                                            }
-                                        }).catch(function() {
-                                            showModalOld('添加失败', '网络错误或无效代码', '',
-                                            [{ text: '知道了', cls: 'primary' }]);
-                                        });
-                                    } }
-                            ]);
-                    }
-                }, {
-                    text: '同步持仓',
-                    icon: iconSync,
-                    action: function() {
-                        var codes = Object.keys(holdings);
-                        if (!codes.length) { showModalOld('提示', '没有持仓可同步', '', [{ text: '知道了',
-                                cls: 'primary' }]); return; }
-                        var added = 0;
-                        codes.forEach(function(c) { if (watchlist.indexOf(c) === -1) { watchlist.push(c);
-                                added++; } });
-                        if (!added) { showModalOld('提示', '持仓已在自选中', '', [{ text: '知道了',
-                            cls: 'primary' }]); return; }
-                        localStorage.setItem(STORAGE_W, JSON.stringify(watchlist));
-                        renderWatchlist();
-                        showModalOld('已同步', '已同步 ' + added + ' 只基金到自选', '', [{ text: '知道了',
-                            cls: 'primary' }]);
-                    }
-                }, {
-                    text: '排序: ' + sortText,
-                    icon: iconSort,
-                    action: function() {
-                        var modes = ['change-desc', 'change-asc', 'default'];
-                        sortMode = modes[(modes.indexOf(sortMode) + 1) % 3];
-                        localStorage.setItem(STORAGE_SORT, sortMode);
-                        renderWatchlist();
-                    }
-                }];
-                showMenuPopup('menuWatchlistPopup', items, btn);
-                if (!isBulkEditing) btn.textContent = '完成';
-            };
-
-            window.showHoldingsMenu = function(btn) {
-                var popup = document.getElementById('menuHoldingsPopup');
-                if (popup.classList.contains('active')) {
-                    popup.classList.remove('active');
-                    if (!isBulkEditing) btn.textContent = '编辑';
-                    return;
-                }
-                var items = [{
-                    text: '添加持仓',
-                    icon: iconAdd,
-                    action: function() {
-                        showModalOld('添加持仓基金', '',
-                            '<input type="text" id="mCode" class="modal-input" placeholder="基金代码" inputmode="numeric" pattern="[0-9]*"><input type="number" id="mCost" class="modal-input" placeholder="成本净值" step="any" inputmode="decimal"><input type="number" id="mShares" class="modal-input" placeholder="持有份额" step="any" inputmode="decimal">',
-                            [
-                                { text: '取消', cls: 'secondary' },
-                                { text: '添加', cls: 'primary', action: function() {
-                                        var code = document.getElementById('mCode').value
-                                        .trim();
-                                        var cost = parseFloat(document.getElementById('mCost')
-                                            .value);
-                                        var shares = parseFloat(document.getElementById(
-                                            'mShares').value);
-                                        if (!/^\d{6}$/.test(code)) {
-                                            showModalOld('提示', '请输入6位代码', '', [{ text: '知道了',
-                                                    cls: 'primary' }]);
-                                            return;
-                                        }
-                                        if (isNaN(cost) || isNaN(shares) || cost <= 0 ||
-                                            shares <= 0) {
-                                            showModalOld('提示', '请填写有效数值', '', [{ text: '知道了',
-                                                    cls: 'primary' }]);
-                                            return;
-                                        }
-                                        var name = getDisplayName(code);
-                                        if (name === code) {
-                                            fetchSingle(code).then(function(data) {
-                                                if (data && data.name) {
-                                                    name = data.name;
-                                                    fundDataCache[code] = Object
-                                                        .assign({}, fundDataCache[
-                                                            code], { name: data
-                                                            .name });
-                                                } else {
-                                                    showModalOld('添加失败',
-                                                        '无效的基金代码', '',
-                                                        [{ text: '知道了',
-                                                            cls: 'primary' }]);
-                                                    return;
-                                                }
-                                                holdings[code] = { name: name,
-                                                    cost: cost,
-                                                shares: shares };
-                                                localStorage.setItem(STORAGE_H,
-                                                    JSON.stringify(holdings));
-                                                renderHoldings();
-                                                showModalOld('已添加', '「' + name +
-                                                    '」已加入持仓', '', [{ text: '知道了',
-                                                        cls: 'primary' }]);
-                                            }).catch(function() {
-                                                showModalOld('添加失败',
-                                                    '网络错误或无效代码', '',
-                                                    [{ text: '知道了',
-                                                        cls: 'primary' }]);
-                                            });
-                                            return;
-                                        }
-                                        holdings[code] = { name: name, cost: cost,
-                                            shares: shares };
-                                        localStorage.setItem(STORAGE_H, JSON.stringify(
-                                            holdings));
-                                        renderHoldings();
-                                        showModalOld('已添加', '「' + name + '」已加入持仓',
-                                            '', [{ text: '知道了', cls: 'primary' }]);
-                                    } }
-                            ]);
-                    }
-                }, {
-                    text: '排序: ' + ({ 'market-desc': '市值降序', 'market-asc': '市值升序' } [holdSortMode]),
-                    icon: iconSort,
-                    action: function() {
-                        holdSortMode = holdSortMode === 'market-desc' ? 'market-asc' : 'market-desc';
-                        localStorage.setItem(STORAGE_HSORT, holdSortMode);
-                        renderHoldings();
-                    }
-                }, {
-                    text: isBulkEditing ? '完成编辑' : '批量编辑',
-                    icon: iconEdit,
-                    action: function() { if (isBulkEditing) exitBulkEditMode();
-                        else enterBulkEditMode(); }
-                }];
-                showMenuPopup('menuHoldingsPopup', items, btn);
-                if (!isBulkEditing) btn.textContent = '完成';
-            };
-
-            // ===== 批量编辑 =====
-            function enterBulkEditMode() {
-                isBulkEditing = true;
-                var btnH = document.getElementById('btnMoreHoldings');
-                if (btnH) btnH.textContent = '完成';
-                document.querySelectorAll('#holdingsList .holding-card').forEach(function(card) {
-                    var code = card.dataset.code,
-                        h = holdings[code];
-                    var metrics = card.querySelector('.metrics-row');
-                    if (metrics) metrics.style.display = 'none';
-                    var ed = card.querySelector('.edit-controls');
-                    if (!ed) {
-                        ed = document.createElement('div');
-                        ed.className = 'edit-controls';
-                        card.appendChild(ed);
-                    }
-                    var cost = parseFloat(h.cost) || 0;
-                    var shares = parseFloat(h.shares) || 0;
-                    ed.innerHTML =
-                        `
-                        <div class="edit-row">
-                            <input type="number" class="edit-input" value="${cost}" step="any" inputmode="decimal" placeholder="成本">
-                            <input type="number" class="edit-input" value="${shares}" step="any" inputmode="decimal" placeholder="份额">
-                            <button class="edit-delete">删除</button>
-                        </div>
-                        <div class="cost-hint">
-                            <span>当前成本: ${cost.toFixed(4)}</span>
-                            <span class="hint-tip">💡 修改后持有收益将重新计算</span>
-                        </div>
-                    `;
-                    ed.querySelector('.edit-delete').onclick = function(e) {
-                        e.stopPropagation();
-                        showModalOld('确认删除', '确定要删除「' + getDisplayName(code) + '」吗？', '', [
-                            { text: '取消', cls: 'secondary' },
-                            { text: '删除', cls: 'danger', action: function() {
-                                    delete holdings[code];
-                                    localStorage.setItem(STORAGE_H, JSON.stringify(holdings));
-                                    renderHoldings();
-                                    showModalOld('已删除', '「' + getDisplayName(code) + '」已从持仓中移除',
-                                        '', [{ text: '知道了', cls: 'primary' }]);
-                                } }
-                        ]);
-                    };
-                });
+            async function refreshAllData() {
+                await fetchAllFunds();
+                scheduleRefresh();
             }
-
-            function exitBulkEditMode() {
-                var changed = false;
-                document.querySelectorAll('#holdingsList .holding-card').forEach(function(card) {
-                    var code = card.dataset.code,
-                        ci = card.querySelector('.edit-input'),
-                        si = card.querySelectorAll('.edit-input')[1];
-                    if (ci && si) {
-                        var cost = parseFloat(ci.value),
-                            shares = parseFloat(si.value);
-                        if (!isNaN(cost) && cost > 0 && !isNaN(shares) && shares > 0) {
-                            if (holdings[code].cost !== cost || holdings[code].shares !== shares) changed = true;
-                            holdings[code] = { cost: cost, shares: shares, name: holdings[code] ? holdings[code]
-                                    .name || '' : '' };
-                        }
-                    }
-                    var ed = card.querySelector('.edit-controls');
-                    if (ed) ed.remove();
-                    var metrics = card.querySelector('.metrics-row');
-                    if (metrics) metrics.style.display = '';
-                });
-                localStorage.setItem(STORAGE_H, JSON.stringify(holdings));
-                isBulkEditing = false;
-                var btnH = document.getElementById('btnMoreHoldings');
-                if (btnH) btnH.textContent = '编辑';
-                renderHoldings();
-                var today = new Date().toISOString().slice(0, 10);
-                accountProfitHistory = accountProfitHistory.filter(function(item) { return item.date !== today; });
-                localStorage.setItem(STORAGE_A, JSON.stringify(accountProfitHistory));
-                renderOverview();
-                if (changed) {
-                    showModalOld('已保存', '批量编辑已保存，今日收益已重新计算', '', [{ text: '知道了', cls: 'primary' }]);
-                } else {
-                    showModalOld('已保存', '批量编辑已保存', '', [{ text: '知道了', cls: 'primary' }]);
-                }
-            }
-
-            // ===== 收益修正弹窗 =====
-            (function() {
-                var overlay = document.getElementById('profitModalOverlay');
-                var cardStack = document.getElementById('profitCardStack');
-                var dateDisplay = document.getElementById('profitDateDisplay');
-                var calendarCard = document.getElementById('profitCalendarCard');
-                var monthYear = document.getElementById('profitMonthYear');
-                var calendarDays = document.getElementById('profitCalendarDays');
-                var signToggle = document.getElementById('profitSignToggle');
-                var prevBtn = document.getElementById('profitPrevBtn');
-                var nextBtn = document.getElementById('profitNextBtn');
-                var cancelBtn = document.getElementById('profitCancelBtn');
-                var confirmBtn = document.getElementById('profitConfirmBtn');
-                var profitInput = document.getElementById('profitInput');
-
-                var year = 2026,
-                    month = 6;
-                var selectedDate = '';
-                var isCalendarOpen = false;
-
-                function pad(n) { return String(n).padStart(2, '0'); }
-
-                function formatKey(y, m, d) { return y + '-' + pad(m) + '-' + pad(d); }
-
-                function renderCalendar(y, m) {
-                    try {
-                        if (!calendarDays) return;
-                        var first = new Date(y, m - 1, 1);
-                        var last = new Date(y, m, 0);
-                        var daysInMonth = last.getDate();
-                        var startWeekday = first.getDay();
-                        var offset = startWeekday === 0 ? 6 : startWeekday - 1;
-                        var prevLast = new Date(y, m - 1, 0).getDate();
-                        var html = '';
-
-                        var prevY = y,
-                            prevM = m - 1;
-                        if (prevM < 1) { prevM = 12;
-                            prevY--; }
-                        for (var i = offset - 1; i >= 0; i--) {
-                            var day = prevLast - i;
-                            html += '<button class="calendar-day other-month" data-y="' + prevY + '" data-m="' + prevM +
-                                '" data-d="' + day + '">' +
-                                day + '</button>';
-                        }
-                        for (var d = 1; d <= daysInMonth; d++) {
-                            var key = formatKey(y, m, d);
-                            var cls = 'calendar-day';
-                            if (key === selectedDate) cls += ' selected';
-                            html += '<button class="' + cls + '" data-y="' + y + '" data-m="' + m + '" data-d="' + d +
-                                '">' + d +
-                                '</button>';
-                        }
-                        var total = offset + daysInMonth;
-                        var rows = Math.ceil(total / 7);
-                        var needed = rows * 7;
-                        var remain = needed - total;
-                        var nextY = y,
-                            nextM = m + 1;
-                        if (nextM > 12) { nextM = 1;
-                            nextY++; }
-                        for (var d2 = 1; d2 <= remain; d2++) {
-                            html += '<button class="calendar-day other-month" data-y="' + nextY + '" data-m="' + nextM +
-                                '" data-d="' +
-                                d2 + '">' + d2 + '</button>';
-                        }
-                        calendarDays.innerHTML = html;
-                        monthYear.textContent = y + '年' + m + '月';
-
-                        calendarDays.querySelectorAll('.calendar-day').forEach(function(btn) {
-                            btn.addEventListener('click', function() {
-                                try {
-                                    var y = parseInt(this.dataset.y);
-                                    var m = parseInt(this.dataset.m);
-                                    var d = parseInt(this.dataset.d);
-                                    var key = formatKey(y, m, d);
-                                    selectedDate = key;
-                                    dateDisplay.value = key;
-                                    renderCalendar(year, month);
-                                    closeCalendar();
-                                } catch (e) {
-                                    console.error('选择日期时出错:', e);
-                                }
-                            });
-                        });
-                    } catch (e) {
-                        console.error('渲染日历时出错:', e);
-                    }
-                }
-
-                function prevMonth() {
-                    var y = year,
-                        m = month - 1;
-                    if (m < 1) { m = 12;
-                        y--; }
-                    year = y;
-                    month = m;
-                    renderCalendar(year, month);
-                }
-
-                function nextMonth() {
-                    var y = year,
-                        m = month + 1;
-                    if (m > 12) { m = 1;
-                        y++; }
-                    year = y;
-                    month = m;
-                    renderCalendar(year, month);
-                }
-
-                function openCalendar() {
-                    if (isCalendarOpen) return;
-                    isCalendarOpen = true;
-                    if (cardStack) cardStack.classList.add('push-up');
-                    if (calendarCard) calendarCard.classList.add('open');
-                }
-
-                function closeCalendar() {
-                    if (!isCalendarOpen) return;
-                    isCalendarOpen = false;
-                    if (cardStack) cardStack.classList.remove('push-up');
-                    if (calendarCard) calendarCard.classList.remove('open');
-                }
-
-                function toggleCalendar() {
-                    if (isCalendarOpen) closeCalendar();
-                    else openCalendar();
-                }
-
-                window.openProfitModal = function(currentProfit) {
-                    try {
-                        if (!overlay || !dateDisplay || !profitInput || !signToggle || !calendarDays) {
-                            console.error('收益弹窗元素未找到');
-                            return;
-                        }
-                        var now = new Date();
-                        year = now.getFullYear();
-                        month = now.getMonth() + 1;
-                        var today = formatKey(year, month, now.getDate());
-                        selectedDate = today;
-                        dateDisplay.value = today;
-                        profitInput.value = '0.00';
-                        signToggle.textContent = '+';
-                        renderCalendar(year, month);
-                        overlay.classList.add('active');
-                        closeCalendar();
-                        setTimeout(function() {
-                            if (profitInput) {
-                                profitInput.focus();
-                                profitInput.select();
-                            }
-                        }, 300);
-                    } catch (e) {
-                        console.error('打开收益弹窗时出错:', e);
-                    }
-                };
-
-                cancelBtn.addEventListener('click', function() {
-                    try {
-                        overlay.classList.remove('active');
-                        closeCalendar();
-                    } catch (e) {
-                        console.error('取消时出错:', e);
-                    }
-                });
-
-                confirmBtn.addEventListener('click', function() {
-                    try {
-                        var date = dateDisplay.value;
-                        var rawVal = parseFloat(profitInput.value);
-                        var sign = signToggle.textContent.trim() === '−' ? -1 : 1;
-                        var profitVal = rawVal * sign;
-                        if (!date || isNaN(rawVal) || rawVal < 0) {
-                            alert('请选择日期并输入有效的正数金额');
-                            return;
-                        }
-                        if (window._saveProfit) {
-                            window._saveProfit(date, profitVal);
-                        }
-                        overlay.classList.remove('active');
-                        closeCalendar();
-                    } catch (e) {
-                        console.error('确认收益修正时出错:', e);
-                        alert('操作失败，请重试');
-                    }
-                });
-
-                overlay.addEventListener('click', function(e) {
-                    if (e.target === overlay) {
-                        overlay.classList.remove('active');
-                        closeCalendar();
-                    }
-                });
-                dateDisplay.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    toggleCalendar();
-                });
-                calendarCard.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-                signToggle.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    this.textContent = this.textContent.trim() === '+' ? '−' : '+';
-                });
-                prevBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    prevMonth();
-                });
-                nextBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    nextMonth();
-                });
-                profitInput.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter') confirmBtn.click();
-                });
-
-                var now = new Date();
-                year = now.getFullYear();
-                month = now.getMonth() + 1;
-                selectedDate = formatKey(year, month, now.getDate());
-                dateDisplay.value = selectedDate;
-                renderCalendar(year, month);
-            })();
-
-            // ===== 旧弹窗 =====
-            function showModalOld(title, desc, contentHTML, buttons) {
-                var overlay = document.getElementById('modalOverlayOld');
-                var titleEl = document.getElementById('modalTitleOld');
-                var descEl = document.getElementById('modalDescOld');
-                var contentEl = document.getElementById('modalContentOld');
-                var buttonsEl = document.getElementById('modalButtonsOld');
-
-                titleEl.textContent = title || '';
-                descEl.textContent = desc || '';
-                contentEl.innerHTML = contentHTML || '';
-                buttonsEl.innerHTML = '';
-                if (buttons && buttons.length) {
-                    buttons.forEach(function(b) {
-                        var btn = document.createElement('button');
-                        btn.className = 'modal-btn ' + (b.cls || '');
-                        btn.textContent = b.text || '确定';
-                        btn.onclick = function() {
-                            overlay.classList.remove('active');
-                            if (b.action) b.action();
-                        };
-                        buttonsEl.appendChild(btn);
-                    });
-                } else {
-                    var btn = document.createElement('button');
-                    btn.className = 'modal-btn primary';
-                    btn.textContent = '确定';
-                    btn.onclick = function() { overlay.classList.remove('active'); };
-                    buttonsEl.appendChild(btn);
-                }
-                overlay.classList.add('active');
-                overlay.onclick = function(e) {
-                    if (e.target === overlay) overlay.classList.remove('active');
-                };
-            }
-            window.showModalOld = showModalOld;
-
-            // ===== 数据管理 =====
-            window.exportConfig = function() {
-                var data = JSON.stringify({ watchlist: watchlist, holdings: holdings,
-                    accountProfitHistory: accountProfitHistory, fundDataCache: fundDataCache,
-                    customTags: customTags }, null, 2);
-                var blob = new Blob([data], { type: 'application/json' });
-                var a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = 'fundholder_config.json';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                showModalOld('导出成功', '配置已导出到本地文件', '', [{ text: '知道了', cls: 'primary' }]);
-            };
-
-            window.copyConfig = function() {
-                var data = JSON.stringify({ watchlist: watchlist, holdings: holdings,
-                    accountProfitHistory: accountProfitHistory, fundDataCache: fundDataCache,
-                    customTags: customTags }, null, 2);
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText(data).then(function() {
-                        showModalOld('复制成功', '配置已复制到剪贴板', '', [{ text: '知道了', cls: 'primary' }]);
-                    });
-                } else {
-                    var ta = document.createElement('textarea');
-                    ta.value = data;
-                    document.body.appendChild(ta);
-                    ta.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(ta);
-                    showModalOld('复制成功', '配置已复制到剪贴板', '', [{ text: '知道了', cls: 'primary' }]);
-                }
-            };
-
-            window.importConfig = function() { document.getElementById('importFile').click(); };
-
-            window.pasteConfig = function() {
-                if (!navigator.clipboard) {
-                    showModalOld('提示', '不支持剪贴板访问', '', [{ text: '知道了', cls: 'primary' }]);
-                    return;
-                }
-                navigator.clipboard.readText().then(function(text) {
-                    try {
-                        var data = JSON.parse(text);
-                        if (Array.isArray(data.watchlist)) { watchlist = data.watchlist;
-                            localStorage.setItem(STORAGE_W, JSON.stringify(watchlist)); }
-                        if (data.holdings && typeof data.holdings === 'object') { holdings = data.holdings;
-                            localStorage.setItem(STORAGE_H, JSON.stringify(holdings)); }
-                        if (Array.isArray(data.accountProfitHistory)) { accountProfitHistory = data
-                                .accountProfitHistory;
-                            localStorage.setItem(STORAGE_A, JSON.stringify(accountProfitHistory)); }
-                        if (data.fundDataCache && typeof data.fundDataCache === 'object') {
-                            fundDataCache = data.fundDataCache;
-                            saveCache();
-                        }
-                        if (data.customTags && typeof data.customTags === 'object') { customTags = data
-                                .customTags;
-                            localStorage.setItem(STORAGE_T, JSON.stringify(customTags)); }
-                        renderWatchlist();
-                        renderHoldings();
-                        updateHomeCounts();
-                        showModalOld('粘贴成功', '配置已从剪贴板导入', '', [{ text: '知道了', cls: 'primary' }]);
-                    } catch (e) {
-                        showModalOld('粘贴失败', '数据格式无效', '', [{ text: '知道了', cls: 'primary' }]);
-                    }
-                }).catch(function() {
-                    showModalOld('提示', '无法读取剪贴板', '', [{ text: '知道了', cls: 'primary' }]);
-                });
-            };
-
-            document.getElementById('importFile').addEventListener('change', function(e) {
-                var file = e.target.files[0];
-                if (!file) return;
-                var reader = new FileReader();
-                reader.onload = function() {
-                    try {
-                        var data = JSON.parse(reader.result);
-                        if (Array.isArray(data.watchlist)) { watchlist = data.watchlist;
-                            localStorage.setItem(STORAGE_W, JSON.stringify(watchlist)); }
-                        if (data.holdings && typeof data.holdings === 'object') { holdings = data.holdings;
-                            localStorage.setItem(STORAGE_H, JSON.stringify(holdings)); }
-                        if (Array.isArray(data.accountProfitHistory)) { accountProfitHistory = data
-                                .accountProfitHistory;
-                            localStorage.setItem(STORAGE_A, JSON.stringify(accountProfitHistory)); }
-                        if (data.fundDataCache && typeof data.fundDataCache === 'object') {
-                            fundDataCache = data.fundDataCache;
-                            saveCache();
-                        }
-                        if (data.customTags && typeof data.customTags === 'object') { customTags = data
-                                .customTags;
-                            localStorage.setItem(STORAGE_T, JSON.stringify(customTags)); }
-                        renderWatchlist();
-                        renderHoldings();
-                        updateHomeCounts();
-                        showModalOld('导入成功', '配置已从文件导入', '', [{ text: '知道了', cls: 'primary' }]);
-                    } catch (e) {
-                        showModalOld('导入失败', '文件格式无效', '', [{ text: '知道了', cls: 'primary' }]);
-                    }
-                };
-                reader.readAsText(file);
-                e.target.value = '';
-            });
-
-            window.clearCache = function() {
-                showModalOld('确认清除', '确定要清除所有基金数据缓存吗？', '', [
-                    { text: '取消', cls: 'secondary' },
-                    { text: '清除', cls: 'danger', action: function() {
-                            localStorage.removeItem(STORAGE_C);
-                            fundDataCache = {};
-                            refreshAllData();
-                            showModalOld('已清除', '缓存已清除，数据将重新加载', '', [{ text: '知道了',
-                                    cls: 'primary' }]);
-                        } }
-                ]);
-            };
-
-            window.resetProfitHistory = function() {
-                showModalOld('确认重置', '将清空所有收益历史，但保留持仓数据，累计盈亏将基于当前市值重新计算。确定吗？', '', [
-                    { text: '取消', cls: 'secondary' },
-                    { text: '重置', cls: 'danger', action: function() {
-                            accountProfitHistory = [];
-                            localStorage.setItem(STORAGE_A, JSON.stringify(accountProfitHistory));
-                            if (accountTrendChart) { accountTrendChart.destroy();
-                                accountTrendChart = null; }
-                            renderOverview();
-                            showModalOld('已重置', '收益历史已清空，当前累计盈亏已基于持仓重新计算', '', [{ text: '知道了',
-                                    cls: 'primary' }]);
-                        } }
-                ]);
-            };
-
-            // ===== 诊断 =====
-            function setDiagUI(id, status, text) {
-                var dot = document.getElementById('dot' + id),
-                    txt = document.getElementById('txt' + id);
-                if (dot) dot.className = 'status-dot ' + status;
-                if (txt) txt.textContent = text;
-            }
-
-            window.copyDiagnosisLink = function(url) {
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText(url).then(function() {
-                        showModalOld('已复制', '链接已复制到剪贴板', '', [{ text: '知道了', cls: 'primary' }]);
-                    });
-                } else {
-                    var ta = document.createElement('textarea');
-                    ta.value = url;
-                    document.body.appendChild(ta);
-                    ta.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(ta);
-                    showModalOld('已复制', '链接已复制到剪贴板', '', [{ text: '知道了', cls: 'primary' }]);
-                }
-            };
-
-            window.runDiag = async function() {
-                var btn = document.getElementById('btnRunDiag');
-                if (btn) { btn.querySelector('.child-card-label').textContent = '诊断中…';
-                    btn.style.pointerEvents = 'none'; }
-                setDiagUI('Fund', 'yellow', '检测中');
-                setDiagUI('Tx', 'yellow', '检测中');
-                setDiagUI('Index', 'yellow', '检测中');
-                setDiagUI('EastMoney', 'yellow', '检测中');
-
-                try {
-                    var d = await fetchSingle('000001');
-                    if (d.gsz) setDiagUI('Fund', 'green', '正常');
-                    else setDiagUI('Fund', 'red', '失败');
-                } catch (e) { setDiagUI('Fund', 'red', '失败'); }
-
-                try {
-                    var ac = new AbortController();
-                    var to = setTimeout(function() { ac.abort(); }, 10000);
-                    var resp = await fetch('https://qt.gtimg.cn/q=jj000001', { signal: ac.signal });
-                    clearTimeout(to);
-                    var text = await resp.text();
-                    var m = text.match(/"([^"]+)"/);
-                    if (m) {
-                        var f = m[1].split('~');
-                        if (f[1] && f[5] && parseFloat(f[5]) > 0) setDiagUI('Tx', 'green', '正常');
-                        else setDiagUI('Tx', 'yellow', '延迟');
-                    } else setDiagUI('Tx', 'red', '失败');
-                } catch (e) { setDiagUI('Tx', 'red', '失败'); }
-
-                try {
-                    var ac2 = new AbortController();
-                    var to2 = setTimeout(function() { ac2.abort(); }, 10000);
-                    var resp2 = await fetch('https://qt.gtimg.cn/q=s_sh000001', { signal: ac2.signal });
-                    clearTimeout(to2);
-                    var text2 = await resp2.text();
-                    var m2 = text2.match(/v_s_(\w+)="(.+)"/);
-                    if (m2) {
-                        var price = parseFloat(m2[2].split('~')[3]);
-                        if (!isNaN(price) && price > 0) setDiagUI('Index', 'green', '正常');
-                        else setDiagUI('Index', 'red', '失败');
-                    } else setDiagUI('Index', 'red', '失败');
-                } catch (e) { setDiagUI('Index', 'red', '失败'); }
-
-                try {
-                    var testData = await fetchGlobalEM('124.HSTECH');
-                    var d2 = testData ? testData.data : null;
-                    var price2 = d2 && d2.f43 ? d2.f43 / 100 : NaN;
-                    if (!isNaN(price2) && price2 > 0) setDiagUI('EastMoney', 'green', '正常');
-                    else setDiagUI('EastMoney', 'red', '失败');
-                } catch (e) { setDiagUI('EastMoney', 'red', '失败'); }
-
-                if (btn) { btn.querySelector('.child-card-label').textContent = '诊断全部数据源';
-                    btn.style.pointerEvents = 'auto'; }
-            };
-
-            // ===== 主题 =====
-            function setTheme(t) {
-                document.documentElement.setAttribute('data-theme', t);
-                localStorage.setItem('app_theme', t);
-                var td = document.getElementById('themeDark'),
-                    tl = document.getElementById('themeLight');
-                if (td) td.classList.toggle('selected', t === 'dark');
-                if (tl) tl.classList.toggle('selected', t === 'light');
-                document.getElementById('themeColorMeta').setAttribute('content', t === 'dark' ? '#000000' : '#ffffff');
-                if (window.toggleThemeRefresh) toggleThemeRefresh();
-            }
-            window.setTheme = setTheme;
-            setTheme(localStorage.getItem('app_theme') || 'dark');
-
-            function toggleThemeRefresh() {
-                var ac = getComputedStyle(document.documentElement).getPropertyValue('--text-tertiary').trim(),
-                    gc = getComputedStyle(document.documentElement).getPropertyValue('--border-subtle').trim();
-                Object.keys(trendCharts).forEach(function(c) {
-                    var ch = trendCharts[c];
-                    if (ch && ch.canvas && document.body.contains(ch.canvas)) {
-                        ch.options.scales.x.ticks.color = ac;
-                        ch.options.scales.x.grid.color = gc;
-                        ch.options.scales.y.ticks.color = ac;
-                        ch.options.scales.y.grid.color = gc;
-                        ch.update();
-                    }
-                });
-                if (accountTrendChart && accountTrendChart.canvas && document.body.contains(accountTrendChart
-                        .canvas)) {
-                    accountTrendChart.options.scales.y.ticks.color = ac;
-                    accountTrendChart.options.scales.y.grid.color = gc;
-                    accountTrendChart.update();
-                }
-                updateTradeBadges();
-            }
-            window.toggleThemeRefresh = toggleThemeRefresh;
 
             // ===== 下拉刷新 =====
             function initPullToRefresh() {
@@ -4014,6 +3297,7 @@
                 });
             }
 
+            // ===== 下拉提示条控制 =====
             var pullIndicator = document.getElementById('pullIndicator');
             var pullArrow = document.getElementById('pullArrow');
             var pullStatus = document.getElementById('pullStatus');
@@ -4048,6 +3332,7 @@
                 }
             }
 
+            // ===== 对勾动画 =====
             var checkPop = document.getElementById('checkPop');
             if (!checkPop) {
                 checkPop = document.createElement('div');
@@ -4068,6 +3353,7 @@
                 }, 600);
             }
 
+            // ===== 批量编辑时下拉刷新静默禁用 =====
             window.refreshCurrentPage = async function() {
                 if (isBulkEditing) {
                     return;
@@ -4078,67 +3364,697 @@
 
             // ===== 左滑返回 =====
             function bindSwipeBack() {
-                var startX = 0,
-                    startY = 0,
-                    swiping = false,
-                    isAnimating = false;
-                var threshold = 80;
-                document.addEventListener('touchstart', function(e) {
-                    if (isAnimating) return;
-                    if (e.touches.length === 1 && e.touches[0].clientX <= 30) {
-                        startX = e.touches[0].clientX;
-                        startY = e.touches[0].clientY;
-                        swiping = true;
-                    } else { swiping = false; }
-                }, { passive: true });
-                document.addEventListener('touchmove', function(e) {
-                    if (!swiping || isAnimating) return;
-                    var dx = e.touches[0].clientX - startX,
-                        dy = e.touches[0].clientY - startY;
-                    if (Math.abs(dx) > Math.abs(dy) && dx > 20) { e.preventDefault(); }
-                }, { passive: false });
-                document.addEventListener('touchend', function(e) {
-                    if (!swiping || isAnimating) return;
-                    swiping = false;
-                    var dx = e.changedTouches[0].clientX - startX;
-                    if (dx > threshold) {
-                        closeAllMenus();
-                        isAnimating = true;
-                        var currentPage = document.querySelector('.page.active');
-                        var homePage = document.getElementById('homePage');
-                        if (!currentPage || currentPage === homePage) { isAnimating = false; return; }
-                        currentPage.style.transition = 'opacity 0.25s ease';
-                        currentPage.style.opacity = '0';
-                        homePage.style.opacity = '0';
-                        homePage.classList.add('active');
-                        setTimeout(function() {
-                            homePage.style.transition = 'opacity 0.25s ease';
-                            homePage.style.opacity = '1';
-                        }, 50);
-                        setTimeout(function() {
-                            currentPage.classList.remove('active');
-                            currentPage.style.opacity = '1';
-                            currentPage.style.transition = '';
-                            homePage.style.transition = '';
-                            isAnimating = false;
-                            document.querySelectorAll('.page').forEach(function(p) {
-                                if (p !== homePage && p !== currentPage) p.classList.remove(
-                                'active');
-                            });
-                            updateHomeCounts();
-                        }, 300);
+    var startX = 0,
+        startY = 0,
+        swiping = false,
+        isAnimating = false;
+    var threshold = 80;
+    document.addEventListener('touchstart', function(e) {
+        if (isAnimating) return;
+        if (e.touches.length === 1 && e.touches[0].clientX <= 30) {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            swiping = true;
+        } else { swiping = false; }
+    }, { passive: true });
+    document.addEventListener('touchmove', function(e) {
+        if (!swiping || isAnimating) return;
+        var dx = e.touches[0].clientX - startX,
+            dy = e.touches[0].clientY - startY;
+        if (Math.abs(dx) > Math.abs(dy) && dx > 20) { e.preventDefault(); }
+    }, { passive: false });
+    document.addEventListener('touchend', function(e) {
+        if (!swiping || isAnimating) return;
+        swiping = false;
+        var dx = e.changedTouches[0].clientX - startX;
+        if (dx > threshold) {
+            closeAllMenus();
+            isAnimating = true;
+            var currentPage = document.querySelector('.page.active');
+            var homePage = document.getElementById('homePage');
+            if (!currentPage || currentPage === homePage) { isAnimating = false; return; }
+            currentPage.style.transition = 'opacity 0.25s ease';
+            currentPage.style.opacity = '0';
+            homePage.style.opacity = '0';
+            homePage.classList.add('active');
+            setTimeout(function() {
+                homePage.style.transition = 'opacity 0.25s ease';
+                homePage.style.opacity = '1';
+            }, 50);
+            setTimeout(function() {
+                currentPage.classList.remove('active');
+                currentPage.style.opacity = '1';
+                currentPage.style.transition = '';
+                homePage.style.transition = '';
+                isAnimating = false;
+                document.querySelectorAll('.page').forEach(function(p) {
+                    if (p !== homePage && p !== currentPage) p.classList.remove('active');
+                });
+                updateHomeCounts();
+            }, 300);
+        }
+    });
+}
+            // ===== 菜单功能 =====
+            var iconAdd =
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>';
+            var iconSync =
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>';
+            var iconSort =
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><polyline points="8 12 4 6 8 0"/><line x1="4" y1="18" x2="20" y2="18"/><polyline points="16 12 20 18 16 24"/></svg>';
+            var iconEdit =
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
+
+            function showMenuPopup(menuId, items, anchorEl) {
+                var popup = document.getElementById(menuId);
+                if (popup.classList.contains('active')) {
+                    popup.classList.remove('active');
+                    if (popup._closeHandler) { document.removeEventListener('click', popup._closeHandler);
+                        popup._closeHandler = null; }
+                    return;
+                }
+                if (popup._closeHandler) { document.removeEventListener('click', popup._closeHandler);
+                    popup._closeHandler = null; }
+                popup.innerHTML = items.map(function(item, i) {
+                    return '<div class="menu-item" data-idx="' + i +
+                        '" tabindex="0" role="menuitem"><span class="menu-icon">' + (item.icon || '') +
+                        '</span>' + item.text + '</div>';
+                }).join('');
+                var rect = anchorEl.getBoundingClientRect();
+                popup.style.top = (rect.bottom + 8) + 'px';
+                popup.style.right = (window.innerWidth - rect.right) + 'px';
+                popup.classList.add('active');
+                popup.onclick = function(e) {
+                    var idx = e.target.closest('.menu-item') ? e.target.closest('.menu-item').dataset.idx :
+                    undefined;
+                    if (idx !== undefined) {
+                        popup.classList.remove('active');
+                        var btn = anchorEl;
+                        if (btn && btn.id === 'btnMoreWatchlist') {
+                            isWatchlistMenuOpen = false;
+                            if (!isBulkEditing) btn.textContent = '编辑';
+                        } else if (btn && btn.id === 'btnMoreHoldings') {
+                            isHoldingsMenuOpen = false;
+                            if (!isBulkEditing) btn.textContent = '编辑';
+                        }
+                        items[parseInt(idx)].action();
                     }
+                };
+                var closeHandler = function(e) {
+                    if (!popup.contains(e.target) && e.target !== anchorEl && !anchorEl.contains(e.target)) {
+                        popup.classList.remove('active');
+                        var btn = anchorEl;
+                        if (btn && btn.id === 'btnMoreWatchlist') {
+                            isWatchlistMenuOpen = false;
+                            if (!isBulkEditing) btn.textContent = '编辑';
+                        } else if (btn && btn.id === 'btnMoreHoldings') {
+                            isHoldingsMenuOpen = false;
+                            if (!isBulkEditing) btn.textContent = '编辑';
+                        }
+                        document.removeEventListener('click', closeHandler);
+                        popup._closeHandler = null;
+                    }
+                };
+                popup._closeHandler = closeHandler;
+                setTimeout(function() { document.addEventListener('click', closeHandler); }, 10);
+            }
+
+            // 暴露到全局，供 onclick 调用
+            window.showWatchlistMenu = function(btn) {
+                var popup = $('menuWatchlistPopup');
+                if (popup.classList.contains('active')) {
+                    popup.classList.remove('active');
+                    isWatchlistMenuOpen = false;
+                    if (!isBulkEditing) btn.textContent = '编辑';
+                    return;
+                }
+                var sortText = { 'change-desc': '跌幅降序', 'change-asc': '涨幅升序', 'default': '默认' } [sortMode];
+                var items = [{
+                    text: '添加自选',
+                    icon: iconAdd,
+                    action: function() {
+                        showModalOld('添加自选基金', '', '<input type="text" id="modalAddCode" class="modal-input" placeholder="000001" maxlength="6" inputmode="numeric" pattern="[0-9]*">',
+                            [
+                                { text: '取消', cls: 'secondary' },
+                                { text: '添加', cls: 'primary', action: function() {
+                                        var code = document.getElementById('modalAddCode').value
+                                        .trim();
+                                        if (!/^\d{6}$/.test(code)) {
+                                            showModalOld('提示', '请输入6位代码', '', [{ text: '知道了',
+                                                    cls: 'primary' }]);
+                                            return;
+                                        }
+                                        if (watchlist.indexOf(code) !== -1) {
+                                            showModalOld('提示', '该基金已在自选中', '', [{ text: '知道了',
+                                                    cls: 'primary' }]);
+                                            return;
+                                        }
+                                        fetchSingle(code).then(function(data) {
+                                            if (data && data.name) {
+                                                watchlist.push(code);
+                                                localStorage.setItem(STORAGE_W, JSON.stringify(
+                                                    watchlist));
+                                                fundDataCache[code] = Object.assign({},
+                                                    fundDataCache[code], { name: data
+                                                        .name });
+                                                saveCache();
+                                                renderWatchlist();
+                                                showModalOld('已添加', '「' + data.name +
+                                                    '」已加入自选', '', [{ text: '知道了',
+                                                        cls: 'primary' }]);
+                                            } else {
+                                                showModalOld('添加失败', '无效的基金代码', '',
+                                                [{ text: '知道了', cls: 'primary' }]);
+                                            }
+                                        }).catch(function() {
+                                            showModalOld('添加失败', '网络错误或无效代码', '',
+                                            [{ text: '知道了', cls: 'primary' }]);
+                                        });
+                                    } }
+                            ]);
+                    }
+                }, {
+                    text: '同步持仓',
+                    icon: iconSync,
+                    action: function() {
+                        var codes = Object.keys(holdings);
+                        if (!codes.length) { showModalOld('提示', '没有持仓可同步', '', [{ text: '知道了',
+                                cls: 'primary' }]); return; }
+                        var added = 0;
+                        codes.forEach(function(c) { if (watchlist.indexOf(c) === -1) { watchlist.push(c);
+                                added++; } });
+                        if (!added) { showModalOld('提示', '持仓已在自选中', '', [{ text: '知道了',
+                            cls: 'primary' }]); return; }
+                        localStorage.setItem(STORAGE_W, JSON.stringify(watchlist));
+                        renderWatchlist();
+                        showModalOld('已同步', '已同步 ' + added + ' 只基金到自选', '', [{ text: '知道了',
+                            cls: 'primary' }]);
+                    }
+                }, {
+                    text: '排序: ' + sortText,
+                    icon: iconSort,
+                    action: function() {
+                        var modes = ['change-desc', 'change-asc', 'default'];
+                        sortMode = modes[(modes.indexOf(sortMode) + 1) % 3];
+                        localStorage.setItem(STORAGE_SORT, sortMode);
+                        renderWatchlist();
+                    }
+                }];
+                showMenuPopup('menuWatchlistPopup', items, btn);
+                isWatchlistMenuOpen = true;
+                if (!isBulkEditing) btn.textContent = '完成';
+            };
+
+            window.showHoldingsMenu = function(btn) {
+                var popup = $('menuHoldingsPopup');
+                if (popup.classList.contains('active')) {
+                    popup.classList.remove('active');
+                    isHoldingsMenuOpen = false;
+                    if (!isBulkEditing) btn.textContent = '编辑';
+                    return;
+                }
+                var items = [{
+                    text: '添加持仓',
+                    icon: iconAdd,
+                    action: function() {
+                        showModalOld('添加持仓基金', '',
+                            '<input type="text" id="mCode" class="modal-input" placeholder="基金代码" inputmode="numeric" pattern="[0-9]*"><input type="number" id="mCost" class="modal-input" placeholder="成本净值" step="any" inputmode="decimal"><input type="number" id="mShares" class="modal-input" placeholder="持有份额" step="any" inputmode="decimal">',
+                            [
+                                { text: '取消', cls: 'secondary' },
+                                { text: '添加', cls: 'primary', action: function() {
+                                        var code = document.getElementById('mCode').value
+                                        .trim();
+                                        var cost = parseFloat(document.getElementById('mCost')
+                                            .value);
+                                        var shares = parseFloat(document.getElementById(
+                                            'mShares').value);
+                                        if (!/^\d{6}$/.test(code)) {
+                                            showModalOld('提示', '请输入6位代码', '', [{ text: '知道了',
+                                                    cls: 'primary' }]);
+                                            return;
+                                        }
+                                        if (isNaN(cost) || isNaN(shares) || cost <= 0 ||
+                                            shares <= 0) {
+                                            showModalOld('提示', '请填写有效数值', '', [{ text: '知道了',
+                                                    cls: 'primary' }]);
+                                            return;
+                                        }
+                                        var name = getDisplayName(code);
+                                        if (name === code) {
+                                            fetchSingle(code).then(function(data) {
+                                                if (data && data.name) {
+                                                    name = data.name;
+                                                    fundDataCache[code] = Object
+                                                        .assign({}, fundDataCache[
+                                                            code], { name: data
+                                                            .name });
+                                                } else {
+                                                    showModalOld('添加失败',
+                                                        '无效的基金代码', '',
+                                                        [{ text: '知道了',
+                                                            cls: 'primary' }]);
+                                                    return;
+                                                }
+                                                holdings[code] = { name: name,
+                                                    cost: cost,
+                                                shares: shares };
+                                                localStorage.setItem(STORAGE_H,
+                                                    JSON.stringify(holdings));
+                                                renderHoldings();
+                                                showModalOld('已添加', '「' + name +
+                                                    '」已加入持仓', '', [{ text: '知道了',
+                                                        cls: 'primary' }]);
+                                            }).catch(function() {
+                                                showModalOld('添加失败',
+                                                    '网络错误或无效代码', '',
+                                                    [{ text: '知道了',
+                                                        cls: 'primary' }]);
+                                            });
+                                            return;
+                                        }
+                                        holdings[code] = { name: name, cost: cost,
+                                            shares: shares };
+                                        localStorage.setItem(STORAGE_H, JSON.stringify(
+                                            holdings));
+                                        renderHoldings();
+                                        showModalOld('已添加', '「' + name + '」已加入持仓',
+                                            '', [{ text: '知道了', cls: 'primary' }]);
+                                    } }
+                            ]);
+                    }
+                }, {
+                    text: '排序: ' + ({ 'market-desc': '市值降序', 'market-asc': '市值升序' } [holdSortMode]),
+                    icon: iconSort,
+                    action: function() {
+                        holdSortMode = holdSortMode === 'market-desc' ? 'market-asc' : 'market-desc';
+                        localStorage.setItem(STORAGE_HSORT, holdSortMode);
+                        renderHoldings();
+                    }
+                }, {
+                    text: isBulkEditing ? '完成编辑' : '批量编辑',
+                    icon: iconEdit,
+                    action: function() { if (isBulkEditing) exitBulkEditMode();
+                        else enterBulkEditMode(); }
+                }];
+                showMenuPopup('menuHoldingsPopup', items, btn);
+                isHoldingsMenuOpen = true;
+                if (!isBulkEditing) btn.textContent = '完成';
+            };
+
+            // ===== 批量编辑 =====
+            function enterBulkEditMode() {
+                isBulkEditing = true;
+                var btnH = $('btnMoreHoldings');
+                if (btnH) btnH.textContent = '完成';
+                document.querySelectorAll('#holdingsList .holding-card').forEach(function(card) {
+                    var code = card.dataset.code,
+                        h = holdings[code];
+                    var metrics = card.querySelector('.metrics-row');
+                    if (metrics) metrics.style.display = 'none';
+                    var ed = card.querySelector('.edit-controls');
+                    if (!ed) {
+                        ed = document.createElement('div');
+                        ed.className = 'edit-controls';
+                        card.appendChild(ed);
+                    }
+                    var cost = parseFloat(h.cost) || 0;
+                    var shares = parseFloat(h.shares) || 0;
+                    ed.innerHTML = `
+                        <div class="edit-row">
+                            <input type="number" class="edit-input" value="${cost}" step="any" inputmode="decimal" placeholder="成本">
+                            <input type="number" class="edit-input" value="${shares}" step="any" inputmode="decimal" placeholder="份额">
+                            <button class="edit-delete">删除</button>
+                        </div>
+                        <div class="cost-hint">
+                            <span>当前成本: ${cost.toFixed(4)}</span>
+                            <span class="hint-tip">💡 修改后持有收益将重新计算</span>
+                        </div>
+                    `;
+                    ed.querySelector('.edit-delete').onclick = function(e) {
+                        e.stopPropagation();
+                        showModalOld('确认删除', '确定要删除「' + getDisplayName(code) + '」吗？', '', [
+                            { text: '取消', cls: 'secondary' },
+                            { text: '删除', cls: 'danger', action: function() {
+                                    delete holdings[code];
+                                    localStorage.setItem(STORAGE_H, JSON.stringify(holdings));
+                                    renderHoldings();
+                                    showModalOld('已删除', '「' + getDisplayName(code) + '」已从持仓中移除',
+                                        '', [{ text: '知道了', cls: 'primary' }]);
+                                } }
+                        ]);
+                    };
                 });
             }
 
+            // ===== 退出批量编辑时强制清除今天的修正记录 =====
+            function exitBulkEditMode() {
+                var changed = false;
+                document.querySelectorAll('#holdingsList .holding-card').forEach(function(card) {
+                    var code = card.dataset.code,
+                        ci = card.querySelector('.edit-input'),
+                        si = card.querySelectorAll('.edit-input')[1];
+                    if (ci && si) {
+                        var cost = parseFloat(ci.value),
+                            shares = parseFloat(si.value);
+                        if (!isNaN(cost) && cost > 0 && !isNaN(shares) && shares > 0) {
+                            if (holdings[code].cost !== cost || holdings[code].shares !== shares) changed = true;
+                            holdings[code] = { cost: cost, shares: shares, name: holdings[code] ? holdings[code]
+                                    .name || '' : '' };
+                        }
+                    }
+                    var ed = card.querySelector('.edit-controls');
+                    if (ed) ed.remove();
+                    var metrics = card.querySelector('.metrics-row');
+                    if (metrics) metrics.style.display = '';
+                });
+                localStorage.setItem(STORAGE_H, JSON.stringify(holdings));
+                isBulkEditing = false;
+                var btnH = $('btnMoreHoldings');
+                if (btnH && !isHoldingsMenuOpen) btnH.textContent = '编辑';
+                renderHoldings();
+
+                // 不管 changed 是否为 true，都清除今天的修正记录
+                var today = new Date().toISOString().slice(0, 10);
+                accountProfitHistory = accountProfitHistory.filter(function(item) { return item.date !== today; });
+                localStorage.setItem(STORAGE_A, JSON.stringify(accountProfitHistory));
+                renderOverview();
+
+                if (changed) {
+                    showModalOld('已保存', '批量编辑已保存，今日收益已重新计算', '', [{ text: '知道了', cls: 'primary' }]);
+                } else {
+                    showModalOld('已保存', '批量编辑已保存', '', [{ text: '知道了', cls: 'primary' }]);
+                }
+            }
+
+            // ===== 数据管理功能 =====
+            window.exportConfig = function() {
+                var data = JSON.stringify({ watchlist: watchlist, holdings: holdings,
+                    accountProfitHistory: accountProfitHistory, fundDataCache: fundDataCache,
+                    customTags: customTags }, null, 2);
+                var blob = new Blob([data], { type: 'application/json' });
+                var a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'fundholder_config.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                showModalOld('导出成功', '配置已导出到本地文件', '', [{ text: '知道了', cls: 'primary' }]);
+            };
+
+            window.copyConfig = function() {
+                var data = JSON.stringify({ watchlist: watchlist, holdings: holdings,
+                    accountProfitHistory: accountProfitHistory, fundDataCache: fundDataCache,
+                    customTags: customTags }, null, 2);
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(data).then(function() {
+                        showModalOld('复制成功', '配置已复制到剪贴板', '', [{ text: '知道了', cls: 'primary' }]);
+                    });
+                } else {
+                    var ta = document.createElement('textarea');
+                    ta.value = data;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                    showModalOld('复制成功', '配置已复制到剪贴板', '', [{ text: '知道了', cls: 'primary' }]);
+                }
+            };
+
+            window.importConfig = function() { $('importFile').click(); };
+
+            window.pasteConfig = function() {
+                if (!navigator.clipboard) {
+                    showModalOld('提示', '不支持剪贴板访问', '', [{ text: '知道了', cls: 'primary' }]);
+                    return;
+                }
+                navigator.clipboard.readText().then(function(text) {
+                    try {
+                        var data = JSON.parse(text);
+                        if (Array.isArray(data.watchlist)) { watchlist = data.watchlist;
+                            localStorage.setItem(STORAGE_W, JSON.stringify(watchlist)); }
+                        if (data.holdings && typeof data.holdings === 'object') { holdings = data.holdings;
+                            localStorage.setItem(STORAGE_H, JSON.stringify(holdings)); }
+                        if (Array.isArray(data.accountProfitHistory)) { accountProfitHistory = data
+                                .accountProfitHistory;
+                            localStorage.setItem(STORAGE_A, JSON.stringify(accountProfitHistory)); }
+                        if (data.fundDataCache && typeof data.fundDataCache === 'object') {
+                            fundDataCache = data.fundDataCache;
+                            saveCache();
+                        }
+                        if (data.customTags && typeof data.customTags === 'object') { customTags = data
+                                .customTags;
+                            localStorage.setItem(STORAGE_T, JSON.stringify(customTags)); }
+                        renderWatchlist();
+                        renderHoldings();
+                        updateHomeCounts();
+                        showModalOld('粘贴成功', '配置已从剪贴板导入', '', [{ text: '知道了', cls: 'primary' }]);
+                    } catch (e) {
+                        showModalOld('粘贴失败', '数据格式无效', '', [{ text: '知道了', cls: 'primary' }]);
+                    }
+                }).catch(function() {
+                    showModalOld('提示', '无法读取剪贴板', '', [{ text: '知道了', cls: 'primary' }]);
+                });
+            };
+
+            $('importFile').addEventListener('change', function(e) {
+                var file = e.target.files[0];
+                if (!file) return;
+                var reader = new FileReader();
+                reader.onload = function() {
+                    try {
+                        var data = JSON.parse(reader.result);
+                        if (Array.isArray(data.watchlist)) { watchlist = data.watchlist;
+                            localStorage.setItem(STORAGE_W, JSON.stringify(watchlist)); }
+                        if (data.holdings && typeof data.holdings === 'object') { holdings = data.holdings;
+                            localStorage.setItem(STORAGE_H, JSON.stringify(holdings)); }
+                        if (Array.isArray(data.accountProfitHistory)) { accountProfitHistory = data
+                                .accountProfitHistory;
+                            localStorage.setItem(STORAGE_A, JSON.stringify(accountProfitHistory)); }
+                        if (data.fundDataCache && typeof data.fundDataCache === 'object') {
+                            fundDataCache = data.fundDataCache;
+                            saveCache();
+                        }
+                        if (data.customTags && typeof data.customTags === 'object') { customTags = data
+                                .customTags;
+                            localStorage.setItem(STORAGE_T, JSON.stringify(customTags)); }
+                        renderWatchlist();
+                        renderHoldings();
+                        updateHomeCounts();
+                        showModalOld('导入成功', '配置已从文件导入', '', [{ text: '知道了', cls: 'primary' }]);
+                    } catch (e) {
+                        showModalOld('导入失败', '文件格式无效', '', [{ text: '知道了', cls: 'primary' }]);
+                    }
+                };
+                reader.readAsText(file);
+                e.target.value = '';
+            });
+
+            window.clearCache = function() {
+                showModalOld('确认清除', '确定要清除所有基金数据缓存吗？', '', [
+                    { text: '取消', cls: 'secondary' },
+                    { text: '清除', cls: 'danger', action: function() {
+                            localStorage.removeItem(STORAGE_C);
+                            fundDataCache = {};
+                            refreshAllData();
+                            showModalOld('已清除', '缓存已清除，数据将重新加载', '', [{ text: '知道了',
+                                    cls: 'primary' }]);
+                        } }
+                ]);
+            };
+
+            window.resetProfitHistory = function() {
+                showModalOld('确认重置', '将清空所有收益历史，但保留持仓数据，累计盈亏将基于当前市值重新计算。确定吗？', '', [
+                    { text: '取消', cls: 'secondary' },
+                    { text: '重置', cls: 'danger', action: function() {
+                            accountProfitHistory = [];
+                            localStorage.setItem(STORAGE_A, JSON.stringify(accountProfitHistory));
+                            if (accountTrendChart) { accountTrendChart.destroy();
+                                accountTrendChart = null; }
+                            renderOverview();
+                            showModalOld('已重置', '收益历史已清空，当前累计盈亏已基于持仓重新计算', '', [{ text: '知道了',
+                                    cls: 'primary' }]);
+                        } }
+                ]);
+            };
+
+            function setDiagUI(id, status, text) {
+                var dot = document.getElementById('dot' + id),
+                    txt = document.getElementById('txt' + id);
+                if (dot) dot.className = 'status-dot ' + status;
+                if (txt) txt.textContent = text;
+            }
+
+            window.copyDiagnosisLink = function(url) {
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(url).then(function() {
+                        showModalOld('已复制', '链接已复制到剪贴板', '', [{ text: '知道了', cls: 'primary' }]);
+                    });
+                } else {
+                    var ta = document.createElement('textarea');
+                    ta.value = url;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                    showModalOld('已复制', '链接已复制到剪贴板', '', [{ text: '知道了', cls: 'primary' }]);
+                }
+            };
+
+            window.runDiag = async function() {
+                var btn = $('btnRunDiag');
+                if (btn) { btn.querySelector('.child-card-label').textContent = '诊断中…';
+                    btn.style.pointerEvents = 'none'; }
+                setDiagUI('Fund', 'yellow', '检测中');
+                setDiagUI('Tx', 'yellow', '检测中');
+                setDiagUI('Index', 'yellow', '检测中');
+                setDiagUI('EastMoney', 'yellow', '检测中');
+
+                try {
+                    var d = await fetchSingle('000001');
+                    if (d.gsz) setDiagUI('Fund', 'green', '正常');
+                    else setDiagUI('Fund', 'red', '失败');
+                } catch (e) { setDiagUI('Fund', 'red', '失败'); }
+
+                try {
+                    var ac = new AbortController();
+                    var to = setTimeout(function() { ac.abort(); }, 10000);
+                    var resp = await fetch('https://qt.gtimg.cn/q=jj000001', { signal: ac.signal });
+                    clearTimeout(to);
+                    var text = await resp.text();
+                    var m = text.match(/"([^"]+)"/);
+                    if (m) {
+                        var f = m[1].split('~');
+                        if (f[1] && f[5] && parseFloat(f[5]) > 0) setDiagUI('Tx', 'green', '正常');
+                        else setDiagUI('Tx', 'yellow', '延迟');
+                    } else setDiagUI('Tx', 'red', '失败');
+                } catch (e) { setDiagUI('Tx', 'red', '失败'); }
+
+                try {
+                    var ac2 = new AbortController();
+                    var to2 = setTimeout(function() { ac2.abort(); }, 10000);
+                    var resp2 = await fetch('https://qt.gtimg.cn/q=s_sh000001', { signal: ac2.signal });
+                    clearTimeout(to2);
+                    var text2 = await resp2.text();
+                    var m2 = text2.match(/v_s_(\w+)="(.+)"/);
+                    if (m2) {
+                        var price = parseFloat(m2[2].split('~')[3]);
+                        if (!isNaN(price) && price > 0) setDiagUI('Index', 'green', '正常');
+                        else setDiagUI('Index', 'red', '失败');
+                    } else setDiagUI('Index', 'red', '失败');
+                } catch (e) { setDiagUI('Index', 'red', '失败'); }
+
+                try {
+                    var testData = await fetchGlobalEM('124.HSTECH');
+                    var d2 = testData ? testData.data : null;
+                    var price2 = d2 && d2.f43 ? d2.f43 / 100 : NaN;
+                    if (!isNaN(price2) && price2 > 0) setDiagUI('EastMoney', 'green', '正常');
+                    else setDiagUI('EastMoney', 'red', '失败');
+                } catch (e) { setDiagUI('EastMoney', 'red', '失败'); }
+
+                if (btn) { btn.querySelector('.child-card-label').textContent = '诊断全部数据源';
+                    btn.style.pointerEvents = 'auto'; }
+            };
+
+            window.toggleThemeRefresh = function() {
+                var ac = getComputedStyle(document.documentElement).getPropertyValue('--text-tertiary').trim(),
+                    gc = getComputedStyle(document.documentElement).getPropertyValue('--border-subtle').trim();
+                Object.keys(trendCharts).forEach(function(c) {
+                    var ch = trendCharts[c];
+                    if (ch && ch.canvas && document.body.contains(ch.canvas)) {
+                        ch.options.scales.x.ticks.color = ac;
+                        ch.options.scales.x.grid.color = gc;
+                        ch.options.scales.y.ticks.color = ac;
+                        ch.options.scales.y.grid.color = gc;
+                        ch.update();
+                    }
+                });
+                if (accountTrendChart && accountTrendChart.canvas && document.body.contains(accountTrendChart
+                        .canvas)) {
+                    accountTrendChart.options.scales.y.ticks.color = ac;
+                    accountTrendChart.options.scales.y.grid.color = gc;
+                    accountTrendChart.update();
+                }
+                updateBreathing();
+            };
+
+            function renderSettingsWarnings() {
+                var container = $('settingsWarningsContainer');
+                if (!container) return;
+                var codes = Object.keys(holdings);
+                if (!codes.length) {
+                    container.innerHTML =
+                        '<div style="text-align:left;font-size:0.7rem;color:var(--text-tertiary);">暂无持仓数据</div>';
+                    return;
+                }
+                var indMap = {},
+                    astMap = {};
+                var total = 0;
+                codes.forEach(function(code) {
+                    var h = holdings[code],
+                        d = fundDataCache[code] || {};
+                    var shares = parseFloat(h.shares) || 0;
+                    var nav = parseFloat(d.actualNav) || parseFloat(d.gsz) || 0;
+                    var mv = nav * shares;
+                    if (mv <= 0) return;
+                    var name = h.name || d.name || code;
+                    var ind = getTagForCode(code, name) || '其他';
+                    var ast = getAssetType(name);
+                    indMap[ind] = (indMap[ind] || 0) + mv;
+                    astMap[ast] = (astMap[ast] || 0) + mv;
+                    total += mv;
+                });
+                if (total <= 0) {
+                    container.innerHTML =
+                        '<div style="text-align:left;font-size:0.7rem;color:var(--text-tertiary);">暂无有效持仓</div>';
+                    return;
+                }
+                var indList = Object.keys(indMap).map(function(k) {
+                    return { name: k, value: indMap[k], pct: indMap[k] / total * 100 };
+                }).sort(function(a, b) { return b.value - a.value; });
+                var warnings = [];
+                indList.forEach(function(x) {
+                    if (x.pct > 40) warnings.push(x.name + ' 行业占比 ' + x.pct.toFixed(1) + '%，过于集中');
+                });
+                var eqPct = ((astMap['股票型'] || 0) + (astMap['混合型'] || 0)) / total * 100;
+                if (eqPct > 80) warnings.push('权益类资产 ' + eqPct.toFixed(1) + '%，风险偏好较高');
+                if (!warnings.length && indList.every(function(i) { return i.name === '其他'; })) {
+                    container.innerHTML =
+                        '<div style="text-align:left;font-size:0.7rem;color:var(--text-tertiary);">💡 为基金设置行业标签可查看详细分析</div>';
+                    return;
+                }
+                if (!warnings.length) {
+                    container.innerHTML =
+                        '<div style="text-align:left;font-size:0.7rem;color:var(--text-tertiary);">✅ 暂未发现集中度风险</div>';
+                    return;
+                }
+                var maxPct = Math.max.apply(null, indList.map(function(i) { return i.pct; }));
+                var html = '<div class="progress-list">';
+                indList.slice(0, 6).forEach(function(ind) {
+                    var isWarn = ind.pct > 40;
+                    var wp = maxPct > 0 ? (ind.pct / maxPct * 100) : 0;
+                    html += '<div class="progress-row"><span class="progress-label">' + ind.name +
+                        '</span><div class="progress-track"><div class="progress-fill ' + (isWarn ? 'warn' :
+                            'safe') + '" style="width:' + wp +
+                        '%;"></div></div><span class="progress-pct">' + ind.pct.toFixed(1) +
+                        '%</span></div>';
+                });
+                html += '</div><div class="warnings-area">';
+                warnings.forEach(function(w) {
+                    html += '<div class="warning-card"><span class="warn-icon">⚠️</span><span>' + w +
+                        '</span></div>';
+                });
+                html += '</div>';
+                container.innerHTML = html;
+            }
+
             // ===== 按钮事件绑定 =====
-            var btnWatchlist = document.getElementById('btnMoreWatchlist');
-            var btnHoldings = document.getElementById('btnMoreHoldings');
+            var btnWatchlist = $('btnMoreWatchlist');
+            var btnHoldings = $('btnMoreHoldings');
 
             if (btnWatchlist) {
                 btnWatchlist.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    if (this.textContent === '完成') {
+                    if (this.textContent === '完成' && isWatchlistMenuOpen) {
                         closeAllMenus();
                         return;
                     }
@@ -4153,7 +4069,7 @@
                         exitBulkEditMode();
                         return;
                     }
-                    if (this.textContent === '完成') {
+                    if (this.textContent === '完成' && isHoldingsMenuOpen) {
                         closeAllMenus();
                         return;
                     }
@@ -4178,11 +4094,7 @@
                         if (document.getElementById('indexPage').classList.contains('active')) fetchIndexData(
                         true);
                         scheduleIndexRefresh();
-                        updateTradeBadges();
-                        // 检查是否需要启动净值抓取
-                        if (isNavFetchWindow()) {
-                            scheduleNavFetch();
-                        }
+                        updateBreathing();
                     } else {
                         clearTimeout(refreshTimer);
                         clearTimeout(wakeUpTimer);
@@ -4191,7 +4103,7 @@
                 });
                 initPullToRefresh();
 
-                var oht = document.getElementById('overviewHeaderTitle');
+                var oht = $('overviewHeaderTitle');
                 var ec = 0,
                     et = null;
                 if (oht) {
@@ -4209,11 +4121,6 @@
                     });
                 }
                 updateTradeBadges();
-
-                // 检查是否需要启动净值抓取
-                if (isNavFetchWindow()) {
-                    scheduleNavFetch();
-                }
             }
 
             init();
