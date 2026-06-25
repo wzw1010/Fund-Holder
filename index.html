@@ -2035,61 +2035,53 @@
                 return '其他';
             }
 
+            // ================================================================
+            //  ✅ getDisplayData (已重构，统一逻辑)
+            // ================================================================
             function getDisplayData(code) {
-            var d = fundDataCache[code] || {};
-            var name = d.name || (holdings[code] ? holdings[code].name : code);
-            var isQDII = getAssetType(name) === 'QDII';
+                var d = fundDataCache[code] || {};
+                var actualNav = parseFloat(d.actualNav);
+                var actualRate = d.actualRate != null ? parseFloat(d.actualRate) : null;
+                var estNav = parseFloat(d.gsz);
+                var estRate = d.gszzl != null ? parseFloat(d.gszzl) : null;
+                var actualDate = d.actualDate || null;
+                var today = new Date().toISOString().slice(0, 10);
+                var isTradingDayToday = isTradingDay();
+                var minutes = new Date().getHours() * 60 + new Date().getMinutes();
+                var isTradingTimeNow = isTradingDayToday && minutes >= 555 && minutes < 915;
 
-            // QDII 优先使用实际净值（海外市场周末可能开市，保持独立逻辑）
-            if (isQDII) {
-                var nav = parseFloat(d.actualNav);
-                var rate = d.actualRate != null ? parseFloat(d.actualRate) : null;
-                if (!isNaN(nav) && nav > 0) {
-                    return { nav: nav, rate: rate, source: 'netValue', isQDII: true };
+                // 周末/节假日：优先使用最后一次净值，否则使用估值（保留最后一次数据）
+                if (!isTradingDayToday) {
+                    if (actualRate !== null && !isNaN(actualNav) && actualNav > 0) {
+                        return { nav: actualNav, rate: actualRate, source: 'netValue' };
+                    }
+                    if (estRate !== null && !isNaN(estNav) && estNav > 0) {
+                        return { nav: estNav, rate: estRate, source: 'estimate' };
+                    }
+                    return { nav: null, rate: null, source: 'none' };
                 }
-            }
 
-            var isTradingDayToday = isTradingDay(); // 今天是不是交易日（周末/节假日返回 false）
-            var isTradingTimeNow = isTradingTime(); // 现在是不是盘中 9:15-15:15
-
-            var actualNav = parseFloat(d.actualNav);
-            var actualRate = d.actualRate != null ? parseFloat(d.actualRate) : null;
-            var estNav = parseFloat(d.gsz);
-            var estRate = d.gszzl != null ? parseFloat(d.gszzl) : null;
-
-            // 🚀 核心修正：如果今天不是交易日（周末/节假日），今日涨跌幅强制为 0
-            if (!isTradingDayToday) {
-                // 只要有净值或估值，就正常显示资产数值，但涨跌幅固定为 0（表示今日无变化）
-                if (!isNaN(actualNav) && actualNav > 0) {
-                    return { nav: actualNav, rate: 0, source: 'netValue' };
+                // 交易日盘中（9:15-15:15）：显示实时估值
+                if (isTradingTimeNow) {
+                    if (estRate !== null && !isNaN(estNav) && estNav > 0) {
+                        return { nav: estNav, rate: estRate, source: 'estimate' };
+                    }
+                    if (actualRate !== null && !isNaN(actualNav) && actualNav > 0) {
+                        return { nav: actualNav, rate: actualRate, source: 'netValue' };
+                    }
+                    return { nav: null, rate: null, source: 'none' };
                 }
-                if (!isNaN(estNav) && estNav > 0) {
-                    return { nav: estNav, rate: 0, source: 'estimate' };
-                }
-                return { nav: null, rate: null, source: 'none' };
-            }
 
-            // 以下是交易日（周一至周五且非节假日）
-            // 非交易时段（盘后/盘前）：优先显示最近公布的实际净值（带真实涨跌幅）
-            if (!isTradingTimeNow) {
-                if (!isNaN(actualNav) && actualNav > 0) {
+                // 交易日盘后（15:15-次日9:15）：净值已更新则显示净值，否则显示估值
+                if (actualDate === today && actualRate !== null && !isNaN(actualNav) && actualNav > 0) {
                     return { nav: actualNav, rate: actualRate, source: 'netValue' };
                 }
-                if (!isNaN(estNav) && estNav > 0) {
+                if (estRate !== null && !isNaN(estNav) && estNav > 0) {
                     return { nav: estNav, rate: estRate, source: 'estimate' };
                 }
                 return { nav: null, rate: null, source: 'none' };
             }
 
-            // 交易时段（盘中）：优先显示实时估值
-            if (!isNaN(estNav) && estNav > 0) {
-                return { nav: estNav, rate: estRate, source: 'estimate' };
-            }
-            if (!isNaN(actualNav) && actualNav > 0) {
-                return { nav: actualNav, rate: actualRate, source: 'netValue' };
-            }
-            return { nav: null, rate: null, source: 'none' };
-        }
             function getLatestTradeDate() {
                 var d = new Date();
                 var now = new Date();
@@ -2305,25 +2297,31 @@
                     var latestTradeDate = getLatestTradeDate();
                     var hasTodayNav = actualDate === latestTradeDate && actualRate !== null;
 
-                    //❎原显示逻辑 var netStr = hasTodayNav ? (actualRate >= 0 ? '+' : '') + actualRate.toFixed(2) + '%' : '--';
-// var netCls = hasTodayNav ? (actualRate > 0 ? 'up' : (actualRate < 0 ? 'down' : 'zero')) : 'zero';
-
-                    // ✅ 估值始终显示（左侧），净值有则显示（右侧）
+                    // ✅ 估值始终显示（左侧）
                     var estimateStr = gszzl !== null ? (gszzl >= 0 ? '+' : '') + gszzl.toFixed(2) + '%' : '--';
                     var estimateCls = gszzl === null ? 'zero' : (gszzl > 0 ? 'up' : (gszzl < 0 ? 'down' : 'zero'));
 
-                    // 右侧净值：非交易时段直接显示缓存的最近净值（去掉日期限制，解决零点后消失问题）
-        var netStr = '--';
-        var netCls = 'zero';
-        var minutes = new Date().getHours() * 60 + new Date().getMinutes();
-        var isTradingTimeNow = isTradingDay() && minutes >= 555 && minutes < 915;
-        if (!isTradingTimeNow) {
-            var actualRate = d.actualRate !== undefined && d.actualRate !== null && !isNaN(parseFloat(d.actualRate)) ? parseFloat(d.actualRate) : null;
-            if (actualRate !== null) {
-                netStr = (actualRate >= 0 ? '+' : '') + actualRate.toFixed(2) + '%';
-                netCls = actualRate > 0 ? 'up' : (actualRate < 0 ? 'down' : 'zero');
-            }
-        }
+                    // ✅ 右侧净值（重构后）
+                    var netStr = '--';
+                    var netCls = 'zero';
+                    var minutes = new Date().getHours() * 60 + new Date().getMinutes();
+                    var isTradingDayToday = isTradingDay();
+                    var isTradingTimeNow = isTradingDayToday && minutes >= 555 && minutes < 915;
+
+                    var shouldShowNet = false;
+                    if (!isTradingDayToday) {
+                        // 周末/节假日：只要有净值就显示
+                        if (actualRate !== null) shouldShowNet = true;
+                    } else {
+                        // 交易日：仅当不在盘中且净值日期等于今天时显示
+                        if (!isTradingTimeNow && actualDate === today && actualRate !== null) {
+                            shouldShowNet = true;
+                        }
+                    }
+                    if (shouldShowNet) {
+                        netStr = (actualRate >= 0 ? '+' : '') + actualRate.toFixed(2) + '%';
+                        netCls = actualRate > 0 ? 'up' : (actualRate < 0 ? 'down' : 'zero');
+                    }
 
                     var tagHtml = tag ?
                         '<span class="industry-tag" data-code="' + code +
@@ -2483,6 +2481,9 @@
                 ]);
             };
 
+            // ================================================================
+            //  ✅ getCardData (持仓卡片数据，使用 getDisplayData)
+            // ================================================================
             function getCardData(code) {
                 var h = holdings[code],
                     d = fundDataCache[code] || {};
@@ -2661,40 +2662,38 @@
             }
 
             function computeSummary() {
-            var codes = Object.keys(holdings);
-            if (!codes.length) {
-                return { totalAsset: null, todayProfit: null, totalProfit: null, totalCost: 0, totalYieldRate: null };
+                var codes = Object.keys(holdings);
+                if (!codes.length) {
+                    return { totalAsset: null, todayProfit: null, totalProfit: null, totalCost: 0, totalYieldRate: null };
+                }
+                var totalCost = 0,
+                    totalMarketValue = 0;
+                var dynamicTodayProfit = 0;
+                codes.forEach(function(code) {
+                    var h = holdings[code];
+                    var cost = parseFloat(h.cost) || 0;
+                    var shares = parseFloat(h.shares) || 0;
+                    totalCost += cost * shares;
+                    var card = getCardData(code);
+                    if (card.marketValue !== null) totalMarketValue += card.marketValue;
+                    if (card.dayProfit !== null) dynamicTodayProfit += card.dayProfit;
+                });
+                var totalProfit = totalMarketValue - totalCost;
+                var totalAsset = totalMarketValue;
+                var totalYieldRate = totalCost > 0 ? (totalProfit / totalCost * 100) : 0;
+
+                var today = new Date().toISOString().slice(0, 10);
+                var manualRecord = accountProfitHistory.find(function(item) { return item.date === today && item.type === 'manual'; });
+                var todayProfit = manualRecord ? manualRecord.profit : dynamicTodayProfit;
+
+                return {
+                    totalAsset: totalAsset,
+                    todayProfit: todayProfit,
+                    totalProfit: totalProfit,
+                    totalCost: totalCost,
+                    totalYieldRate: totalYieldRate
+                };
             }
-            var totalCost = 0,
-                totalMarketValue = 0;
-            var dynamicTodayProfit = 0; // 用于累加每只基金实时计算出的今日收益
-            codes.forEach(function(code) {
-                var h = holdings[code];
-                var cost = parseFloat(h.cost) || 0;
-                var shares = parseFloat(h.shares) || 0;
-                totalCost += cost * shares;
-                var card = getCardData(code);
-                if (card.marketValue !== null) totalMarketValue += card.marketValue;
-                // 累加每只基金的今日收益（估值或净值，取当前能拿到的最新数据）
-                if (card.dayProfit !== null) dynamicTodayProfit += card.dayProfit;
-            });
-            var totalProfit = totalMarketValue - totalCost;
-            var totalAsset = totalMarketValue;
-            var totalYieldRate = totalCost > 0 ? (totalProfit / totalCost * 100) : 0;
-
-            var today = new Date().toISOString().slice(0, 10);
-            // 只有“手动修正”的记录才会覆盖自动计算的值，自动保存的历史记录不再干扰今日收益
-            var manualRecord = accountProfitHistory.find(function(item) { return item.date === today && item.type === 'manual'; });
-            var todayProfit = manualRecord ? manualRecord.profit : dynamicTodayProfit;
-
-            return {
-                totalAsset: totalAsset,
-                todayProfit: todayProfit,
-                totalProfit: totalProfit,
-                totalCost: totalCost,
-                totalYieldRate: totalYieldRate
-            };
-        }
 
             function updateSummary(s) {
                 if (!summaryVisible) {
@@ -2784,28 +2783,28 @@
             }
 
             function renderOverview() {
-    try {
-        var s = computeSummary();
+                try {
+                    var s = computeSummary();
 
-        // 修正今日收益：非交易时段显示最近一个完整交易日的真实收益
-        var isTradingNow = isTradingTime(); // 盘中 9:15-15:15
-        if (!isTradingNow) {
-            var latestDate = getLatestTradeDate();
-            var record = accountProfitHistory.find(function(item) { return item.date === latestDate; });
-            if (record && record.profit !== undefined) {
-                s.todayProfit = record.profit;
+                    // 修正今日收益：非交易时段显示最近一个完整交易日的真实收益
+                    var isTradingNow = isTradingTime(); // 盘中 9:15-15:15
+                    if (!isTradingNow) {
+                        var latestDate = getLatestTradeDate();
+                        var record = accountProfitHistory.find(function(item) { return item.date === latestDate; });
+                        if (record && record.profit !== undefined) {
+                            s.todayProfit = record.profit;
+                        }
+                    }
+
+                    updateSummary(s);
+                    appendAccountHistory();
+                    renderAccountTrendChart();
+                    renderSettingsWarnings();
+                    updateTradeBadges();
+                } catch (e) {
+                    console.error('renderOverview 出错:', e);
+                }
             }
-        }
-
-        updateSummary(s);
-        appendAccountHistory();
-        renderAccountTrendChart();
-        renderSettingsWarnings();
-        updateTradeBadges();
-    } catch (e) {
-        console.error('renderOverview 出错:', e);
-    }
-}
 
             window.editTodayProfit = function() {
                 if (Object.keys(holdings).length === 0) {
@@ -3372,57 +3371,58 @@
 
             // ===== 左滑返回 =====
             function bindSwipeBack() {
-    var startX = 0,
-        startY = 0,
-        swiping = false,
-        isAnimating = false;
-    var threshold = 80;
-    document.addEventListener('touchstart', function(e) {
-        if (isAnimating) return;
-        if (e.touches.length === 1 && e.touches[0].clientX <= 30) {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-            swiping = true;
-        } else { swiping = false; }
-    }, { passive: true });
-    document.addEventListener('touchmove', function(e) {
-        if (!swiping || isAnimating) return;
-        var dx = e.touches[0].clientX - startX,
-            dy = e.touches[0].clientY - startY;
-        if (Math.abs(dx) > Math.abs(dy) && dx > 20) { e.preventDefault(); }
-    }, { passive: false });
-    document.addEventListener('touchend', function(e) {
-        if (!swiping || isAnimating) return;
-        swiping = false;
-        var dx = e.changedTouches[0].clientX - startX;
-        if (dx > threshold) {
-            closeAllMenus();
-            isAnimating = true;
-            var currentPage = document.querySelector('.page.active');
-            var homePage = document.getElementById('homePage');
-            if (!currentPage || currentPage === homePage) { isAnimating = false; return; }
-            currentPage.style.transition = 'opacity 0.25s ease';
-            currentPage.style.opacity = '0';
-            homePage.style.opacity = '0';
-            homePage.classList.add('active');
-            setTimeout(function() {
-                homePage.style.transition = 'opacity 0.25s ease';
-                homePage.style.opacity = '1';
-            }, 50);
-            setTimeout(function() {
-                currentPage.classList.remove('active');
-                currentPage.style.opacity = '1';
-                currentPage.style.transition = '';
-                homePage.style.transition = '';
-                isAnimating = false;
-                document.querySelectorAll('.page').forEach(function(p) {
-                    if (p !== homePage && p !== currentPage) p.classList.remove('active');
+                var startX = 0,
+                    startY = 0,
+                    swiping = false,
+                    isAnimating = false;
+                var threshold = 80;
+                document.addEventListener('touchstart', function(e) {
+                    if (isAnimating) return;
+                    if (e.touches.length === 1 && e.touches[0].clientX <= 30) {
+                        startX = e.touches[0].clientX;
+                        startY = e.touches[0].clientY;
+                        swiping = true;
+                    } else { swiping = false; }
+                }, { passive: true });
+                document.addEventListener('touchmove', function(e) {
+                    if (!swiping || isAnimating) return;
+                    var dx = e.touches[0].clientX - startX,
+                        dy = e.touches[0].clientY - startY;
+                    if (Math.abs(dx) > Math.abs(dy) && dx > 20) { e.preventDefault(); }
+                }, { passive: false });
+                document.addEventListener('touchend', function(e) {
+                    if (!swiping || isAnimating) return;
+                    swiping = false;
+                    var dx = e.changedTouches[0].clientX - startX;
+                    if (dx > threshold) {
+                        closeAllMenus();
+                        isAnimating = true;
+                        var currentPage = document.querySelector('.page.active');
+                        var homePage = document.getElementById('homePage');
+                        if (!currentPage || currentPage === homePage) { isAnimating = false; return; }
+                        currentPage.style.transition = 'opacity 0.25s ease';
+                        currentPage.style.opacity = '0';
+                        homePage.style.opacity = '0';
+                        homePage.classList.add('active');
+                        setTimeout(function() {
+                            homePage.style.transition = 'opacity 0.25s ease';
+                            homePage.style.opacity = '1';
+                        }, 50);
+                        setTimeout(function() {
+                            currentPage.classList.remove('active');
+                            currentPage.style.opacity = '1';
+                            currentPage.style.transition = '';
+                            homePage.style.transition = '';
+                            isAnimating = false;
+                            document.querySelectorAll('.page').forEach(function(p) {
+                                if (p !== homePage && p !== currentPage) p.classList.remove('active');
+                            });
+                            updateHomeCounts();
+                        }, 300);
+                    }
                 });
-                updateHomeCounts();
-            }, 300);
-        }
-    });
-}
+            }
+
             // ===== 菜单功能 =====
             var iconAdd =
                 '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>';
