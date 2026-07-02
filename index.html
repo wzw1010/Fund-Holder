@@ -112,8 +112,8 @@
             --idx-card-bg: rgba(255, 255, 255, 0.7);
             --idx-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
             --calendar-bg: rgba(255, 255, 255, 0.95);
-            --badge-bg: rgba(0, 206, 202, 0.18);
-            --badge-color: #00CECA;
+            --badge-bg: rgba(0, 206, 202, 0.30);
+            --badge-color: #007573;
             --badge-border: rgba(0, 206, 202, 0.2);
             color-scheme: light;
         }
@@ -2073,7 +2073,8 @@
                 }
 
                 // 交易日盘后（15:15-次日9:15）：净值已更新则显示净值，否则显示估值
-                if (actualDate === today && actualRate !== null && !isNaN(actualNav) && actualNav > 0) {
+                var latestTradeDate = getLatestTradeDate();
+                if (actualDate === latestTradeDate && actualRate !== null && !isNaN(actualNav) && actualNav > 0) {
                     return { nav: actualNav, rate: actualRate, source: 'netValue' };
                 }
                 if (estRate !== null && !isNaN(estNav) && estNav > 0) {
@@ -3080,7 +3081,7 @@
             window.jsonpgz = function(d) {
                 if (d && d.fundcode && window._jsonpCB) {
                     for (var k in window._jsonpCB) {
-                        if (k.indexOf(d.fundcode) !== -1) { window._jsonpCB[k](d); break; }
+                         if (k.startsWith('r-' + d.fundcode + '-')) { window._jsonpCB[k](d); break; }
                     }
                 }
             };
