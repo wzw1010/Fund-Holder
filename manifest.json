@@ -1,0 +1,18 @@
+{
+  "name": "Fund Holder",
+  "short_name": "Fund Holder",
+  "description": "基金跟踪与管理工具",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
