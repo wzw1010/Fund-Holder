@@ -1,18 +1,39 @@
 {
-  "name": "Fund Holder",
-  "short_name": "Fund Holder",
-  "description": "基金跟踪与管理工具",
-  "start_url": ".",
+  "name": "Fund-Holder",
+  "short_name": "Fund-Holder",
+  "description": "基金净值跟踪 · 持仓管理 · 账户概览",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#000000",
-  "orientation": "portrait",
+  "lang": "zh-CN",
+  "dir": "ltr",
   "icons": [
     {
       "src": "icon-1024.png",
       "sizes": "1024x1024",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-1024.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-1024.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }

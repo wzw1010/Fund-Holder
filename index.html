@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Fund-Tracker</title>
+    <title>Fund-Holder</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#000000" id="themeColorMeta">
@@ -1500,7 +1500,7 @@
         <div id="homePage" class="page active">
             <div class="home-hero">
                 <div class="home-hero-title">基金跟踪</div>
-                <div class="home-hero-subtitle">Fund-Tracker</div>
+                <div class="home-hero-subtitle">Fund-Holder</div>
             </div>
             <div class="home-card-list">
                 <div class="home-entry-card" onclick="navigateTo('index')" tabindex="0" role="button">
@@ -1747,7 +1747,7 @@
 
     <script>
         /* ================================================================
-           Fund-Tracker · 完整 JavaScript（已修复所有问题）
+           Fund-Holder · 完整 JavaScript（已修复所有问题）
            ================================================================ */
 
         (function() {
@@ -1767,7 +1767,8 @@
                 CHART_RETRY_DELAY: 3000,
                 BATCH_SIZE: 3,
                 TREND_MAX_POINTS: 20,
-                PIE_COLORS: ['#1A3A4A', '#2A5F6F', '#3D7A8C', '#5A9AAA', '#7AB8C8', '#A8D0D8'],
+                // 配色数组：深浅交替，相邻扇区对比更明显；第 7 位为"其他"专用中性灰
+                PIE_COLORS: ['#1A3A4A', '#A8D0D8', '#2A5F6F', '#7AB8C8', '#3D7A8C', '#5A9AAA', '#6B7280'],
             };
 
             // ================================================================
@@ -2568,7 +2569,7 @@
                     } catch (e) {}
                 },
 
-                // ========== 饼图（已修复边框、预警样式） ==========
+                // ========== 饼图（图例颜色已对齐，配色深浅交替，观感优化） ==========
                 renderSettingsWarnings: function() {
                     const container = document.getElementById('settingsWarningsContainer');
                     if (!container) return;
@@ -2623,16 +2624,17 @@
                     const rightItems = finalEntries.slice(half);
 
                     const colors = CONFIG.PIE_COLORS;
-                    const makeLegendHTML = function(items) {
-                        return items.map(function(item, idx) {
-                            const color = colors[idx % colors.length];
+                    // 图例颜色按全局索引取色，确保与扇区颜色一一对应
+                    const makeLegendHTML = function(items, startIdx) {
+                        return items.map(function(item, i) {
+                            const color = colors[(startIdx + i) % colors.length];
                             return '<span class="legend-item"><span class="color-dot" style="background:' +
                                 color + ';"></span>' + escapeHTML(item.name) + ' ' + item.pct.toFixed(1) +
                                 '%</span>';
                         }).join('');
                     };
-                    leftLegend.innerHTML = makeLegendHTML(leftItems);
-                    rightLegend.innerHTML = makeLegendHTML(rightItems);
+                    leftLegend.innerHTML = makeLegendHTML(leftItems, 0);
+                    rightLegend.innerHTML = makeLegendHTML(rightItems, half);
 
                     const chartWrapper = document.createElement('div');
                     chartWrapper.className = 'pie-chart-wrapper';
@@ -2674,12 +2676,12 @@
                                 data: dataValues,
                                 backgroundColor: dataColors,
                                 borderColor: bgColor,
-                                borderWidth: 1.5,
+                                borderWidth: 2,
                                 hoverBorderColor: bgColor,
-                                hoverBorderWidth: 2,
-                                hoverOffset: 6,
-                                borderRadius: 4,
-                                spacing: 2,
+                                hoverBorderWidth: 2.5,
+                                hoverOffset: 8,
+                                borderRadius: 2,
+                                spacing: 1.5,
                             }]
                         },
                         options: {
@@ -3212,7 +3214,7 @@
                 const blob = new Blob([data], { type: 'application/json' });
                 const a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);
-                a.download = 'fundtracker_config.json';
+                a.download = 'fundholder_config.json';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -3336,7 +3338,7 @@
             };
 
             // ================================================================
-            //  十、指数数据（已修复 A股解析，删除韩国综指）
+            //  十、指数数据（已修复 A股解析，删除韩国综指，删除日经225）
             // ================================================================
             const A_INDICES = [
                 { code: 's_sh000001', name: '上证指数' },
@@ -3348,15 +3350,14 @@
                 { code: 's_sh000852', name: '中证1000' },
                 { code: 's_sh000016', name: '上证50' }
             ];
-            // 已删除韩国综指 (100.KS11)
+            // 已删除韩国综指 (100.KS11)，已删除日经225 (100.N225)
             const G_INDICES = [
                 { code: 'r_hkHSI', name: '恒生指数', type: 'tx' },
                 { code: 'r_hkHSCEI', name: '国企指数', type: 'tx' },
                 { code: 'r_hkHSTECH', name: '恒生科技', type: 'tx' },
                 { code: 'usDJI', name: '道琼斯', type: 'tx' },
                 { code: 'usIXIC', name: '纳斯达克', type: 'tx' },
-                { code: 'usINX', name: '标普500', type: 'tx' },
-                { code: '100.N225', name: '日经225', type: 'em' }
+                { code: 'usINX', name: '标普500', type: 'tx' }
             ];
 
             function fetchIndexData(forceRefresh) {
@@ -3514,6 +3515,7 @@
                 });
             }
 
+            // fetchEM 保留：仍被设置页的东方财富数据源诊断使用
             function fetchEM(secid) {
                 return new Promise(function(resolve, reject) {
                     const cb = 'em_' + secid.replace(/\./g, '_') + '_' + Date.now();
@@ -4189,7 +4191,7 @@
                     });
                 }
 
-                console.log('✅ Fund-Tracker 已修复：A股指数、删除韩国综指、饼图边框/预警样式优化');
+                console.log('✅ Fund-Holder 已优化：饼图图例配色修正、移除日经225、品牌重命名');
             }
 
             if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
